@@ -30,12 +30,15 @@
               <li><a href="#n1cg" role="tab" data-toggle="tab">n1 - cg</a></li>
               <li><a href="#n3cg" role="tab" data-toggle="tab">n3 - cg</a></li>
               <li><a href="#n1web" role="tab" data-toggle="tab">n1 - web</a></li>
+              <li><a href="#UDK" role="tab" data-toggle="tab">UDK</a></li>
+              <li><a href="#sobre" role="tab" data-toggle="tab">Sobre</a></li>
             </ul>
-
+<!-- janela.cpp -->
 <div class="tab-content">
     <div class="tab-pane fade in active" id="home">
             <h1>janela.cpp</h1>
     <pre>
+      <code> <!-- Esse <code> não serve pra pn -->
     //COLOCAR < ANTES DE CADA UM DOS INCLUDES
     #include windows.h> 
     #include windowsx.h>
@@ -113,10 +116,11 @@
 
         return DefWindowProc (hWnd, message, wParam, lParam);
     }
+      </code>
     </pre>
 </div>
 
-
+<!-- triangulo.cpp -->
 <div class="tab-pane fade" id="profile">
     <h1>triangulo.cpp</h1>
     <pre>
@@ -289,6 +293,7 @@
         </pre>
 </div>
 
+<!-- triangulo_2.cpp -->
 <div class="tab-pane fade" id="messages">
     <h1>triangulo_2.cpp</h1>
     <pre>
@@ -505,6 +510,7 @@
            </pre>
     </div>
 
+<!-- beki.cpp -->
 <div class="tab-pane fade" id="settings">
 
    <h1>beki.cpp</h1>
@@ -784,6 +790,7 @@
     </pre>
 </div>
 
+<!-- n1 - cg -->
 <div class="tab-pane fade" id="n1cg">
     <h1>Prova N1 de CG</h1>
     <pre>
@@ -1078,6 +1085,7 @@
     </pre>
 </div>
 
+<!-- n3 - cg -->
 <div class="tab-pane fade" id="n3cg">
     <h1>Prova N3 de CG</h1>
     <pre>
@@ -1452,6 +1460,7 @@
     </pre>
 </div>
 
+<!-- udk -->
 <div class="tab-pane fade" id="n1web">
     <h1>Prova N1 de JogWeb</h1>
     <pre>
@@ -1552,6 +1561,49 @@
     </body>
 
     </pre>
+</div>
+
+<div class="tab-pane fade" id="UDK">
+  <h1>UDK</h1>
+  <h2>Laboratório de Programação</h2>
+  <h4>Cheatsheet</h4>
+  <span class="text-muted">Atalhos para aquele negócio que você nunca lembra como fazer</span>
+  <!-- Pedidos do Danilo:
+  UDK para Consulta
+
+Como colocar água (com volume de água e post process)
+Kismet
+  Trigger
+  Matinee: InterpActor
+  Toggleable Light
+  Particula
+  Escrever na tela
+Obs.: Tirar global illum e colocar gamemode
+-->
+  <ul>
+    <li></li>
+  </ul>
+  <pre>
+  </pre>
+</div>
+
+<!-- sobre -->
+<div class="tab-pane fade" id="sobre">
+  <h1>Sobre o /consulta</h1>
+  <h2>/consulta</h2>
+  <p>O /consulta foi criado para que os alunos pudessem colaborar e ter uma consulta organizada e fácil de usar nas provas onde consulta à internet é permitida. O /consulta é parte do projeto <a href="http://ludoteca.github.io">Ludoteca</a>.</p>
+  <h2>Contato</h2>
+  <p>É só procurar o <a href="http://loloop.github.io/">Mauricio</a> <!-- não posso deixar de fazer aquela propaganda bacana né --> na faculdade.</p>
+  <h2>To-Do list:</h2>
+  <span class="text-muted">Coisas que o Mauricio ainda quer fazer</span>
+  <p>Colabore para que isso seja feito! Dê Fork&Pull no <a href="http://github.com/ludoteca/consulta">GitHub!</a></p>
+  <ul>
+    <li>Arrumar as <\tags> de dentro dos códigos</li>
+    <li>Separar o /consulta em várias páginas <span class="text-muted">porque ninguém aguenta mais ficar editando um arquivo html de 2000 linhas</span></li>
+    <li>Incorporar <a href="http://jekyllrb.com">Jekyll</a> no Consulta <span class="text-muted">pra facilitar a colaboratividade no git</span></li>
+    <!-- instalar algum plugin/fw pro código ficar legível  
+         e talvez escrever um css pro negócio ficar bonitinho -->
+  </ul>
 </div>
 
     </div>
