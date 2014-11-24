@@ -29,6 +29,7 @@
               <li><a href="#settings" role="tab" data-toggle="tab">beki.cpp</a></li>
               <li><a href="#n1cg" role="tab" data-toggle="tab">n1 - cg</a></li>
               <li><a href="#n3cg" role="tab" data-toggle="tab">n3 - cg</a></li>
+               <li><a href="#sprites" role="tab" data-toggle="tab">sprites.cpp</a></li>
               <li><a href="#n1web" role="tab" data-toggle="tab">n1 - web</a></li>
               <li><a href="#UDK" role="tab" data-toggle="tab">UDK</a></li>
               <li><a href="#sobre" role="tab" data-toggle="tab">Sobre</a></li>
@@ -1969,6 +1970,287 @@
      
          return 0;
      }
+    </pre>
+</div>
+
+<!-- sprites - n2 cg -->
+<div class="tab-pane fade" id="sprites">
+    <h1>Manipulção de Sprites</h1>
+    <pre>
+    // Arquivos necessários do Windows e Direct3D. LEMBRAR DE COLOCAR < E >
+    #include windows.h
+    #include windowsx.h
+    #include d3d9.h
+    #include d3dx9.h
+
+    // Definição de tela e macros
+    #define SCREEN_WIDTH  1024
+    #define SCREEN_HEIGHT 768
+    #define LARGURA_IMAGEM 32
+    #define ALTURA_IMAGEM 48
+    #define KEY_DOWN(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
+    #define KEY_UP(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 0 : 1)
+
+    // Inclusão da bibclioteca D3D
+    #pragma comment (lib, "d3d9.lib")
+    #pragma comment (lib, "d3dx9.lib")
+
+    // Declarações globais
+    LPDIRECT3D9 d3d;    // Ponteiro para interface D3D
+    LPDIRECT3DDEVICE9 d3ddev;    // Ponteiro para classe Device
+    LPD3DXSPRITE d3dspt;    // Ponteiro para interface D3D Sprite
+
+    // Declaração de sprites
+    LPDIRECT3DTEXTURE9 sprite1;    // Ponteiro
+    LPDIRECT3DTEXTURE9 sprite2;    // Ponteiro
+    LPDIRECT3DTEXTURE9 sprite3;    // Ponteiro
+
+    // Posição inicial do sprite da Sarah
+    float posicaoX = 0;
+    float posicaoY = 0;
+
+    // Velocidade de movimentação
+    float velocidade = 5;
+
+    // Indíces das imagens na sprite
+    int indiceX = 0; // Utilizado para dar a idéia de movimentação
+    int indiceY = 1; // Utilizado para definir a direção
+
+    // Quantidade de frames de exibição de cada imagem
+    int QTD_FRAMES = 10;
+    int FRAME_ATUAL = 0;
+
+
+    // Protótipos de funções
+    void initD3D(HWND hWnd); // sets up and initializes Direct3D
+    void render_frame(void); // renders a single frame
+    void cleanD3D(void); // closes Direct3D and releases memory
+
+    // Protótipo da função WindowProc
+    LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+
+    // Ponto de entrada do programa
+    int WINAPI WinMain(HINSTANCE hInstance,
+                       HINSTANCE hPrevInstance,
+                       LPSTR lpCmdLine,
+                       int nCmdShow)
+    {
+        HWND hWnd;
+        WNDCLASSEX wc;
+
+        ZeroMemory(&wc, sizeof(WNDCLASSEX));
+
+        wc.cbSize = sizeof(WNDCLASSEX);
+        wc.style = CS_HREDRAW | CS_VREDRAW;
+        wc.lpfnWndProc = (WNDPROC)WindowProc;
+        wc.hInstance = hInstance;
+        wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+        wc.lpszClassName = L"WindowClass1";
+
+        RegisterClassEx(&wc);
+
+        hWnd = CreateWindowEx(NULL,
+                              L"WindowClass1",
+                              L"Our Direct3D Program",
+                              WS_EX_TOPMOST | WS_POPUP,
+                              0, 0,
+                              SCREEN_WIDTH, SCREEN_HEIGHT,
+                              NULL,
+                              NULL,
+                              hInstance,
+                              NULL);
+
+        ShowWindow(hWnd, nCmdShow);
+
+        // Configura e inicializa o Direct3D
+        initD3D(hWnd);
+
+        // Laço principal:
+
+        MSG msg;
+
+        while(TRUE)
+        {
+            DWORD starting_point = GetTickCount();
+
+            if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+            {
+                if (msg.message == WM_QUIT)
+                    break;
+
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
+
+            render_frame();
+
+            // Verifica as teclas pressionas
+
+            // Verifica se ESC foi pressionado para sair
+            if(KEY_DOWN(VK_ESCAPE))
+                PostMessage(hWnd, WM_DESTROY, 0, 0);
+
+            // Verifica se a seta esquerda foi pressionada
+            if(KEY_DOWN(VK_LEFT))
+            {
+                indiceY = 1;
+                posicaoX -= velocidade;
+            }
+
+            // Verifica se a seta direita foi pressionada
+            if(KEY_DOWN(VK_RIGHT))
+            {
+                indiceY = 2;
+                posicaoX += velocidade;
+            }
+
+            // Verifica se a seta para cima foi pressionada
+            if(KEY_DOWN(VK_UP))
+            {
+                indiceY = 3;
+                posicaoY -= velocidade;
+            }
+
+            // Verifica se a seta para baixo foi pressionada
+            if(KEY_DOWN(VK_DOWN))
+            {
+                indiceY = 0;
+                posicaoY += velocidade;
+            }
+
+            while ((GetTickCount() - starting_point) < 25);
+        }
+
+        // Limpa a memória
+        cleanD3D();
+
+        return msg.wParam;
+    }
+
+    // Encerra a janela quando receber a ordem
+    LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+    {
+        switch(message)
+        {
+            case WM_DESTROY:
+                {
+                    PostQuitMessage(0);
+                    return 0;
+                } break;
+        }
+
+        return DefWindowProc (hWnd, message, wParam, lParam);
+    }
+
+
+    // Inicializa e prepara o Direct3D para uso
+    void initD3D(HWND hWnd)
+    {
+        d3d = Direct3DCreate9(D3D_SDK_VERSION);
+
+        D3DPRESENT_PARAMETERS d3dpp;
+
+        ZeroMemory(&d3dpp, sizeof(d3dpp));
+        d3dpp.Windowed = TRUE;
+        d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+        d3dpp.hDeviceWindow = hWnd;
+        d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
+        d3dpp.BackBufferWidth = SCREEN_WIDTH;
+        d3dpp.BackBufferHeight = SCREEN_HEIGHT;
+
+        d3d->CreateDevice(D3DADAPTER_DEFAULT,
+                          D3DDEVTYPE_HAL,
+                          hWnd,
+                          D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+                          &d3dpp,
+                          &d3ddev);
+
+        D3DXCreateSprite(d3ddev, &d3dspt);    // Cria o objeto Direct3D Sprite
+
+        // Obtem os dados da sprite da Sarah a partir do arquivo Sarah.dds
+        D3DXCreateTextureFromFile(d3ddev, L"Sarah.dds", &sprite1);
+
+        // Obtem o cenário de deserto a partir do arquivo desert2.png
+        D3DXCreateTextureFromFile(d3ddev, L"desert2.png", &sprite2);
+
+        return;
+    }
+
+
+    // Função para desenhar na tela
+    void render_frame(void)
+    {
+        // Limpa a tela com a cor azul
+        d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+
+        d3ddev->BeginScene();
+
+        // Desenha spirtes com alpha habilitado
+        d3dspt->Begin(D3DXSPRITE_ALPHABLEND);
+
+        // Desenha as sprites
+        D3DXVECTOR3 center(0.0f, 0.0f, 0.0f);
+        D3DXVECTOR3 position1a(posicaoX, posicaoY, 0);
+        D3DXVECTOR3 position2a(0, 0, 0);
+
+        // Retangulo de recorte para exibir apenas a Sarah adequada
+        // RECT rect = { x1 - começo, y1 - começo, x2 - fim, y2 - fim }
+        RECT recorte = {
+            LARGURA_IMAGEM * indiceX, //X1
+            ALTURA_IMAGEM * indiceY,					//Y1
+            (LARGURA_IMAGEM * indiceX) + LARGURA_IMAGEM,		//X2
+            (ALTURA_IMAGEM * indiceY) + ALTURA_IMAGEM};		//Y2
+
+        // Controle de frames para a ilusão de passos
+        if(FRAME_ATUAL > QTD_FRAMES)
+        {
+            indiceX++;
+            FRAME_ATUAL = 0;
+
+            if(indiceX > 3)
+                indiceX = 0;
+        }
+
+        FRAME_ATUAL++;
+
+        // Desenha primeiro o deserto
+        d3dspt->Draw(
+            sprite2,
+            NULL,
+            ¢er,
+            &position2a,
+            D3DCOLOR_XRGB(255, 255, 255));
+
+        // Desenha a Sarah depois
+        d3dspt->Draw(
+            sprite1,
+            &recorte,
+            ¢er,
+            &position1a,
+            D3DCOLOR_XRGB(255, 255, 255));
+
+
+        d3dspt->End();    // Encerra o desenho de sprites
+
+        d3ddev->EndScene();
+
+        d3ddev->Present(NULL, NULL, NULL, NULL);
+
+        return;
+    }
+
+
+    // Limpa a memória
+    void cleanD3D(void)
+    {
+        sprite1->Release();
+        sprite2->Release();
+        d3ddev->Release();
+        d3d->Release();
+
+        return;
+    }
     </pre>
 </div>
 
