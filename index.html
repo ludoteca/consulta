@@ -300,21 +300,21 @@
             <h1>Duas Dimensões</h1>
     <pre>
       <code> <!-- Esse <code> não serve pra pn -->
-      // include the basic windows header files and the Direct3D header file
-      #include <windows.h>
-      #include <windowsx.h>
-      #include <d3d9.h>
-      #include <d3dx9.h>
+      // Arquivos necessários do Windows e Direct3D.
+      #include &lt;windows.h&gt;
+      #include &lt;windowsx.h&gt;
+      #include &lt;d3d9.h&gt;
+      #include &lt;d3dx9.h&gt;
 
-      // define the screen resolution and keyboard macros
+      // Definição de tela e macros do teclado
       #define SCREEN_WIDTH  1024
       #define SCREEN_HEIGHT 768
-      #define LARGURA_IMAGEM 32
+      #define LARGURA_IMAGEM 32 // tamanho da sprite da personagem
       #define ALTURA_IMAGEM 48
       #define KEY_DOWN(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
       #define KEY_UP(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 0 : 1)
 
-      // include the Direct3D Library file
+      // Inclusão da biblioteca D3D
       #pragma comment (lib, "d3d9.lib")
       #pragma comment (lib, "d3dx9.lib")
 
@@ -328,11 +328,18 @@
       LPDIRECT3DTEXTURE9 sprite2;    // the pointer to the sprite
       LPDIRECT3DTEXTURE9 sprite3;    // the pointer to the sprite
 
+      // Posição inicial do sprite da Sarah
       float posicaoX = 0;
       float posicaoY = 0;
+
+      // Velocidade de movimentação
       float velocidade = 5;
-      int indiceX = 0;
-      int indiceY = 1;
+
+      // Índices das imagens na sprite
+      int indiceX = 0; // Utilizado para dar a idéia de movimentação
+      int indiceY = 1; // Utilizado para definir a direção
+
+      // Quantidade de frames de exibição de cada imagem
       int QTD_FRAMES = 10;
       int FRAME_ATUAL = 0;
 
@@ -346,7 +353,7 @@
       LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 
-      // the entry point for any Windows program
+      // Ponto de entrada do programa
       int WINAPI WinMain(HINSTANCE hInstance,
                          HINSTANCE hPrevInstance,
                          LPSTR lpCmdLine,
@@ -379,11 +386,10 @@
 
           ShowWindow(hWnd, nCmdShow);
 
-          // set up and initialize Direct3D
+          // Configura e inicializa o Direct3D
           initD3D(hWnd);
 
-          // enter the main loop:
-
+          // loop principal
           MSG msg;
 
           while(TRUE)
@@ -401,28 +407,35 @@
 
               render_frame();
 
-              // check the 'escape' key
-              if(KEY_DOWN(VK_ESCAPE))
-                  PostMessage(hWnd, WM_DESTROY, 0, 0);
+          // Verifica as teclas pressionas
 
+          // ESC
+          if(KEY_DOWN(VK_ESCAPE))
+              PostMessage(hWnd, WM_DESTROY, 0, 0);
+
+
+          // ESQUERDA
           if(KEY_DOWN(VK_LEFT))
           {
             indiceY = 1;
             posicaoX -= velocidade;
           }
 
+          // DIREITA
           if(KEY_DOWN(VK_RIGHT))
           {
             indiceY = 2;
             posicaoX += velocidade;
           }
 
+          // CIMA
           if(KEY_DOWN(VK_UP))
           {
             indiceY = 3;
             posicaoY -= velocidade;
           }
 
+          // BAIXO
           if(KEY_DOWN(VK_DOWN))
           {
             indiceY = 0;
@@ -489,27 +502,31 @@
       }
 
 
-      // this is the function used to render a single frame
+      // Função para desenhar na tela
       void render_frame(void)
       {
-          // clear the window to a deep blue
+          // Limpa a tela com a cor azul
           d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
           d3ddev->BeginScene();    // begins the 3D scene
 
-          d3dspt->Begin(D3DXSPRITE_ALPHABLEND);    // begin sprite drawing
+          // Desenha sprites com alpha habilitado
+          d3dspt->Begin(D3DXSPRITE_ALPHABLEND);
 
-          // draw the sprite
+          // Desenha as sprites
           D3DXVECTOR3 center(0.0f, 0.0f, 0.0f);
           D3DXVECTOR3 position1a(posicaoX, posicaoY, 0);
         D3DXVECTOR3 position2a(0, 0, 0);
 
+        // Retangulo de recorte para exibir apenas a Sarah adequada
+        // RECT rect = { x1 - começo, y1 - começo, x2 - fim, y2 - fim }
         RECT recorte = {
           LARGURA_IMAGEM * indiceX, //X1
           ALTURA_IMAGEM * indiceY,          //Y1
           (LARGURA_IMAGEM * indiceX) + LARGURA_IMAGEM,    //X2
           (ALTURA_IMAGEM * indiceY) + ALTURA_IMAGEM};   //Y2
 
+        // Controle de frames para a ilusão de passos
         if(FRAME_ATUAL > QTD_FRAMES)
         {
           indiceX++;
@@ -521,6 +538,7 @@
 
         FRAME_ATUAL++;
 
+        // Desenha primeiro o deserto
         d3dspt->Draw(
           sprite2, 
           NULL, 
@@ -528,6 +546,7 @@
           &position2a, 
           D3DCOLOR_XRGB(255, 255, 255));
 
+        // Desenha a Sarah depois
         d3dspt->Draw(
           sprite1, 
           &recorte, 
@@ -536,8 +555,7 @@
           D3DCOLOR_XRGB(255, 255, 255));
 
 
-          d3dspt->End();    // end sprite drawing
-
+          d3dspt->End();    // Encerra o desenho de sprites
           d3ddev->EndScene();    // ends the 3D scene
 
           d3ddev->Present(NULL, NULL, NULL, NULL);
