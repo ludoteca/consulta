@@ -1,0 +1,2191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="">
+        <title>Consulta para a prova de CG</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+        
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="container">
+            <ul class="nav nav-tabs" role="tablist" id="myTab">
+              <li class="active"><a href="#home" role="tab" data-toggle="tab">Duas Dimensões</a></li>
+              <li><a href="#profile" role="tab" data-toggle="tab">Scroll Infinito</a></li>
+              <li><a href="#messages" role="tab" data-toggle="tab">triangulo_2.cpp</a></li>
+              <li><a href="#settings" role="tab" data-toggle="tab">beki.cpp</a></li>
+              <li><a href="#n1cg" role="tab" data-toggle="tab">n1 - cg</a></li>
+              <li><a href="#n3cg" role="tab" data-toggle="tab">n3 - cg</a></li>
+              <li><a href="#n1web" role="tab" data-toggle="tab">n1 - web</a></li>
+              <li><a href="#UDK" role="tab" data-toggle="tab">UDK</a></li>
+              <li><a href="#sobre" role="tab" data-toggle="tab">Sobre</a></li>
+            </ul>
+
+<!-- janela.cpp // removendo conteúdo, depois arrumo
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="home">
+            <h1>janela.cpp</h1>
+    <pre>
+      <code> Esse <code> não serve pra pn 
+    //COLOCAR < ANTES DE CADA UM DOS INCLUDES
+    #include windows.h> 
+    #include windowsx.h>
+
+    LRESULT CALLBACK WindowProc(HWND hWnd,
+                             UINT message,
+                             WPARAM wParam,
+                             LPARAM lParam);
+
+    int WINAPI WinMain(HINSTANCE hInstance,
+                       HINSTANCE hPrevInstance,
+                       LPSTR lpCmdLine,
+                       int nCmdShow)
+    {
+        HWND hWnd;
+        WNDCLASSEX wc;
+
+        ZeroMemory(&wc, sizeof(WNDCLASSEX));
+
+        wc.cbSize = sizeof(WNDCLASSEX);
+        wc.style = CS_HREDRAW | CS_VREDRAW;
+        wc.lpfnWndProc = WindowProc;
+        wc.hInstance = hInstance;
+        wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+        wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
+        wc.lpszClassName = L"WindowClass1";
+
+        RegisterClassEx(&wc);
+
+        hWnd = CreateWindowEx(NULL,
+                              L"WindowClass1",    
+                              L"Our First Windowed Program",    
+                              WS_OVERLAPPEDWINDOW,    
+                              300,    
+                              300,    
+                              500,    
+                              400,    
+                              NULL,   
+                              NULL,   
+                              hInstance, 
+                              NULL);   
+
+        ShowWindow(hWnd, nCmdShow);
+
+        MSG msg;
+
+        while(TRUE)
+        {
+            while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+            {
+                TranslateMessage(&msg);
+
+                DispatchMessage(&msg);
+            }
+
+            if(msg.message == WM_QUIT)
+                break;
+
+            // Seu código!
+        }
+
+        return msg.wParam;
+    }
+
+    LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+    {
+        switch(message)
+        {
+            case WM_DESTROY:
+                {
+                    PostQuitMessage(0);
+                    return 0;
+                } break;
+        }
+
+        return DefWindowProc (hWnd, message, wParam, lParam);
+    }
+      </code>
+    </pre>
+</div>  -->
+
+<!-- triangulo.cpp 
+<div class="tab-pane fade" id="profile">
+    <h1>triangulo.cpp</h1>
+    <pre>
+    //COLOCAR < ANTES DE CADA UM DOS INCLUDES
+    #include windows.h>
+    #include windowsx.h>
+    #include d3d9.h>
+
+    #define SCREEN_WIDTH 800
+    #define SCREEN_HEIGHT 600
+
+    #pragma comment (lib, "d3d9.lib")
+
+    LPDIRECT3D9 d3d;    
+    LPDIRECT3DDEVICE9 d3ddev;    
+    LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;    
+
+    void initD3D(HWND hWnd);   
+    void render_frame(void);   
+    void cleanD3D(void);   
+    void init_graphics(void);    
+
+    struct CUSTOMVERTEX {FLOAT X, Y, Z, RHW; DWORD COLOR;};
+    #define CUSTOMFVF (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)
+
+    LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+
+    int WINAPI WinMain(HINSTANCE hInstance,
+                       HINSTANCE hPrevInstance,
+                       LPSTR lpCmdLine,
+                       int nCmdShow)
+    {
+        HWND hWnd;
+        WNDCLASSEX wc;
+
+        ZeroMemory(&wc, sizeof(WNDCLASSEX));
+
+        wc.cbSize = sizeof(WNDCLASSEX);
+        wc.style = CS_HREDRAW | CS_VREDRAW;
+        wc.lpfnWndProc = WindowProc;
+        wc.hInstance = hInstance;
+        wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+        wc.lpszClassName = L"WindowClass";
+
+        RegisterClassEx(&wc);
+
+        hWnd = CreateWindowEx(NULL,
+                              L"WindowClass",
+                              L"Our Direct3D Program",
+                              WS_OVERLAPPEDWINDOW,
+                              0, 0,
+                              SCREEN_WIDTH, SCREEN_HEIGHT,
+                              NULL,
+                              NULL,
+                              hInstance,
+                              NULL);
+
+        ShowWindow(hWnd, nCmdShow);
+
+        initD3D(hWnd);
+
+        MSG msg;
+
+        while(TRUE)
+        {
+            while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
+
+            if(msg.message == WM_QUIT)
+                break;
+
+            render_frame();
+        }
+
+        cleanD3D();
+
+        return msg.wParam;
+    }
+
+
+    LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+    {
+        switch(message)
+        {
+            case WM_DESTROY:
+                {
+                    PostQuitMessage(0);
+                    return 0;
+                } break;
+        }
+
+        return DefWindowProc (hWnd, message, wParam, lParam);
+    }
+
+
+    void initD3D(HWND hWnd)
+    {
+        d3d = Direct3DCreate9(D3D_SDK_VERSION);
+
+        D3DPRESENT_PARAMETERS d3dpp;
+
+        ZeroMemory(&d3dpp, sizeof(d3dpp));
+        d3dpp.Windowed = TRUE;
+        d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+        d3dpp.hDeviceWindow = hWnd;
+        d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
+        d3dpp.BackBufferWidth = SCREEN_WIDTH;
+        d3dpp.BackBufferHeight = SCREEN_HEIGHT;
+
+        d3d->CreateDevice(D3DADAPTER_DEFAULT,
+                          D3DDEVTYPE_HAL,
+                          hWnd,
+                          D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+                          &d3dpp,
+                          &d3ddev);
+
+        init_graphics();
+    }
+
+    void render_frame(void)
+    {
+        d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+
+        d3ddev->BeginScene();
+
+            d3ddev->SetFVF(CUSTOMFVF);
+
+            d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
+
+            d3ddev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+
+        d3ddev->EndScene();
+
+        d3ddev->Present(NULL, NULL, NULL, NULL);
+    }
+
+    void cleanD3D(void)
+    {
+        v_buffer->Release();
+        d3ddev->Release();
+        d3d->Release();
+    }
+
+    void init_graphics(void)
+    {
+        CUSTOMVERTEX vertices[] =
+        {
+            { 400.0f, 62.5f, 0.5f, 1.0f, D3DCOLOR_XRGB(0, 0, 255), },
+            { 650.0f, 500.0f, 0.5f, 1.0f, D3DCOLOR_XRGB(0, 255, 0), },
+            { 150.0f, 500.0f, 0.5f, 1.0f, D3DCOLOR_XRGB(255, 0, 0), },
+        };
+
+        d3ddev->CreateVertexBuffer(3*sizeof(CUSTOMVERTEX),
+                                   0,
+                                   CUSTOMFVF,
+                                   D3DPOOL_MANAGED,
+                                   &v_buffer,
+                                   NULL);
+
+        VOID* pVoid;
+
+        v_buffer->Lock(0, 0, (void**)&pVoid, 0);
+        memcpy(pVoid, vertices, sizeof(vertices));
+        v_buffer->Unlock();
+    }
+        </pre>
+</div> -->
+
+<!-- Trabalhando com Duas Dimensões -->
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="home">
+            <h1>Duas Dimensões</h1>
+    <pre>
+      <code> <!-- Esse <code> não serve pra pn -->
+      // Arquivos necessários do Windows e Direct3D.
+      #include &lt;windows.h&gt;
+      #include &lt;windowsx.h&gt;
+      #include &lt;d3d9.h&gt;
+      #include &lt;d3dx9.h&gt;
+
+      // Definição de tela e macros do teclado
+      #define SCREEN_WIDTH  1024
+      #define SCREEN_HEIGHT 768
+      #define LARGURA_IMAGEM 32 // tamanho da sprite da personagem
+      #define ALTURA_IMAGEM 48
+      #define KEY_DOWN(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
+      #define KEY_UP(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 0 : 1)
+
+      // Inclusão da biblioteca D3D
+      #pragma comment (lib, "d3d9.lib")
+      #pragma comment (lib, "d3dx9.lib")
+
+      // global declarations
+      LPDIRECT3D9 d3d;    // the pointer to our Direct3D interface
+      LPDIRECT3DDEVICE9 d3ddev;    // the pointer to the device class
+      LPD3DXSPRITE d3dspt;    // the pointer to our Direct3D Sprite interface
+
+      // sprite declarations
+      LPDIRECT3DTEXTURE9 sprite1;    // the pointer to the sprite
+      LPDIRECT3DTEXTURE9 sprite2;    // the pointer to the sprite
+      LPDIRECT3DTEXTURE9 sprite3;    // the pointer to the sprite
+
+      // Posição inicial do sprite da Sarah
+      float posicaoX = 0;
+      float posicaoY = 0;
+
+      // Velocidade de movimentação
+      float velocidade = 5;
+
+      // Índices das imagens na sprite
+      int indiceX = 0; // Utilizado para dar a idéia de movimentação
+      int indiceY = 1; // Utilizado para definir a direção
+
+      // Quantidade de frames de exibição de cada imagem
+      int QTD_FRAMES = 10;
+      int FRAME_ATUAL = 0;
+
+
+      // function prototypes
+      void initD3D(HWND hWnd); // sets up and initializes Direct3D
+      void render_frame(void); // renders a single frame
+      void cleanD3D(void); // closes Direct3D and releases memory
+
+      // the WindowProc function prototype
+      LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+
+      // Ponto de entrada do programa
+      int WINAPI WinMain(HINSTANCE hInstance,
+                         HINSTANCE hPrevInstance,
+                         LPSTR lpCmdLine,
+                         int nCmdShow)
+      {
+          HWND hWnd;
+          WNDCLASSEX wc;
+
+          ZeroMemory(&wc, sizeof(WNDCLASSEX));
+
+          wc.cbSize = sizeof(WNDCLASSEX);
+          wc.style = CS_HREDRAW | CS_VREDRAW;
+          wc.lpfnWndProc = (WNDPROC)WindowProc;
+          wc.hInstance = hInstance;
+          wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+          wc.lpszClassName = L"WindowClass1";
+
+          RegisterClassEx(&wc);
+
+          hWnd = CreateWindowEx(NULL,
+                                L"WindowClass1",
+                                L"Our Direct3D Program",
+                                WS_EX_TOPMOST | WS_POPUP,
+                                0, 0,
+                                SCREEN_WIDTH, SCREEN_HEIGHT,
+                                NULL,
+                                NULL,
+                                hInstance,
+                                NULL);
+
+          ShowWindow(hWnd, nCmdShow);
+
+          // Configura e inicializa o Direct3D
+          initD3D(hWnd);
+
+          // loop principal
+          MSG msg;
+
+          while(TRUE)
+          {
+              DWORD starting_point = GetTickCount();
+
+              if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+              {
+                  if (msg.message == WM_QUIT)
+                      break;
+
+                  TranslateMessage(&msg);
+                  DispatchMessage(&msg);
+              }
+
+              render_frame();
+
+          // Verifica as teclas pressionas
+
+          // ESC
+          if(KEY_DOWN(VK_ESCAPE))
+              PostMessage(hWnd, WM_DESTROY, 0, 0);
+
+
+          // ESQUERDA
+          if(KEY_DOWN(VK_LEFT))
+          {
+            indiceY = 1;
+            posicaoX -= velocidade;
+          }
+
+          // DIREITA
+          if(KEY_DOWN(VK_RIGHT))
+          {
+            indiceY = 2;
+            posicaoX += velocidade;
+          }
+
+          // CIMA
+          if(KEY_DOWN(VK_UP))
+          {
+            indiceY = 3;
+            posicaoY -= velocidade;
+          }
+
+          // BAIXO
+          if(KEY_DOWN(VK_DOWN))
+          {
+            indiceY = 0;
+            posicaoY += velocidade;
+          }
+
+              while ((GetTickCount() - starting_point) < 25);
+          }
+
+          // clean up DirectX and COM
+          cleanD3D();
+
+          return msg.wParam;
+      }
+
+
+      // this is the main message handler for the program
+      LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+      {
+          switch(message)
+          {
+              case WM_DESTROY:
+                  {
+                      PostQuitMessage(0);
+                      return 0;
+                  } break;
+          }
+
+          return DefWindowProc (hWnd, message, wParam, lParam);
+      }
+
+
+      // this function initializes and prepares Direct3D for use
+      void initD3D(HWND hWnd)
+      {
+          d3d = Direct3DCreate9(D3D_SDK_VERSION);
+
+          D3DPRESENT_PARAMETERS d3dpp;
+
+          ZeroMemory(&d3dpp, sizeof(d3dpp));
+          d3dpp.Windowed = TRUE;
+          d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+          d3dpp.hDeviceWindow = hWnd;
+          d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
+          d3dpp.BackBufferWidth = SCREEN_WIDTH;
+          d3dpp.BackBufferHeight = SCREEN_HEIGHT;
+
+          // create a device class using this information and the info from the d3dpp stuct
+          d3d->CreateDevice(D3DADAPTER_DEFAULT,
+                            D3DDEVTYPE_HAL,
+                            hWnd,
+                            D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+                            &d3dpp,
+                            &d3ddev);
+
+          D3DXCreateSprite(d3ddev, &d3dspt);    // create the Direct3D Sprite object
+
+        
+
+          D3DXCreateTextureFromFile(d3ddev, L"Sarah.dds", &sprite1);
+        D3DXCreateTextureFromFile(d3ddev, L"desert2.png", &sprite2);
+
+          return;
+      }
+
+
+      // Função para desenhar na tela
+      void render_frame(void)
+      {
+          // Limpa a tela com a cor azul
+          d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+
+          d3ddev->BeginScene();    // begins the 3D scene
+
+          // Desenha sprites com alpha habilitado
+          d3dspt->Begin(D3DXSPRITE_ALPHABLEND);
+
+          // Desenha as sprites
+          D3DXVECTOR3 center(0.0f, 0.0f, 0.0f);
+          D3DXVECTOR3 position1a(posicaoX, posicaoY, 0);
+        D3DXVECTOR3 position2a(0, 0, 0);
+
+        // Retangulo de recorte para exibir apenas a Sarah adequada
+        // RECT rect = { x1 - começo, y1 - começo, x2 - fim, y2 - fim }
+        RECT recorte = {
+          LARGURA_IMAGEM * indiceX, //X1
+          ALTURA_IMAGEM * indiceY,          //Y1
+          (LARGURA_IMAGEM * indiceX) + LARGURA_IMAGEM,    //X2
+          (ALTURA_IMAGEM * indiceY) + ALTURA_IMAGEM};   //Y2
+
+        // Controle de frames para a ilusão de passos
+        if(FRAME_ATUAL > QTD_FRAMES)
+        {
+          indiceX++;
+          FRAME_ATUAL = 0;
+
+          if(indiceX > 3)
+            indiceX = 0;
+        }
+
+        FRAME_ATUAL++;
+
+        // Desenha primeiro o deserto
+        d3dspt->Draw(
+          sprite2, 
+          NULL, 
+          &center, 
+          &position2a, 
+          D3DCOLOR_XRGB(255, 255, 255));
+
+        // Desenha a Sarah depois
+        d3dspt->Draw(
+          sprite1, 
+          &recorte, 
+          &center, 
+          &position1a, 
+          D3DCOLOR_XRGB(255, 255, 255));
+
+
+          d3dspt->End();    // Encerra o desenho de sprites
+          d3ddev->EndScene();    // ends the 3D scene
+
+          d3ddev->Present(NULL, NULL, NULL, NULL);
+
+          return;
+      }
+
+
+      // this is the function that cleans up Direct3D and COM
+      void cleanD3D(void)
+      {
+          sprite1->Release();
+        sprite2->Release();
+          d3ddev->Release();
+          d3d->Release();
+
+          return;
+      }
+      </code>
+    </pre>
+</div>
+
+<!-- Scroll Infinito -->
+<div class="tab-pane fade" id="profile">
+    <h1>Scroll Infinito</h1>
+    <pre>
+      // include the basic windows header files and the Direct3D header file
+      #include &lt;windows.h&gt;
+      #include &lt;windowsx.h&gt;
+      #include &lt;d3d9.h&gt;
+      #include &lt;d3dx9.h&gt;
+
+      // define the screen resolution and keyboard macros
+      #define SCREEN_WIDTH  1024
+      #define SCREEN_HEIGHT 768
+      #define KEY_DOWN(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
+      #define KEY_UP(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 0 : 1)
+
+      // include the Direct3D Library file
+      #pragma comment (lib, "d3d9.lib")
+      #pragma comment (lib, "d3dx9.lib")
+
+      // global declarations
+      LPDIRECT3D9 d3d;    // the pointer to our Direct3D interface
+      LPDIRECT3DDEVICE9 d3ddev;    // the pointer to the device class
+      LPD3DXSPRITE d3dspt;    // the pointer to our Direct3D Sprite interface
+
+      // sprite declarations
+      LPDIRECT3DTEXTURE9 sprite1;    // the pointer to the sprite
+      LPDIRECT3DTEXTURE9 sprite2;    // the pointer to the sprite
+      LPDIRECT3DTEXTURE9 sprite3;    // the pointer to the sprite
+
+      float x1a = 0;
+      float x1b = 0;
+      float x1c = 0;
+      float y = 0;
+      float velocidade1X = 1;
+      float velocidade2X = 5;
+      float velocidade3X = 10;
+
+      // function prototypes
+      void initD3D(HWND hWnd); // sets up and initializes Direct3D
+      void render_frame(void); // renders a single frame
+      void cleanD3D(void); // closes Direct3D and releases memory
+
+      // the WindowProc function prototype
+      LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+
+      // the entry point for any Windows program
+      int WINAPI WinMain(HINSTANCE hInstance,
+                         HINSTANCE hPrevInstance,
+                         LPSTR lpCmdLine,
+                         int nCmdShow)
+      {
+          HWND hWnd;
+          WNDCLASSEX wc;
+
+          ZeroMemory(&wc, sizeof(WNDCLASSEX));
+
+          wc.cbSize = sizeof(WNDCLASSEX);
+          wc.style = CS_HREDRAW | CS_VREDRAW;
+          wc.lpfnWndProc = (WNDPROC)WindowProc;
+          wc.hInstance = hInstance;
+          wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+          wc.lpszClassName = L"WindowClass1";
+
+          RegisterClassEx(&wc);
+
+          hWnd = CreateWindowEx(NULL,
+                                L"WindowClass1",
+                                L"Our Direct3D Program",
+                                WS_EX_TOPMOST | WS_POPUP,
+                                0, 0,
+                                SCREEN_WIDTH, SCREEN_HEIGHT,
+                                NULL,
+                                NULL,
+                                hInstance,
+                                NULL);
+
+          ShowWindow(hWnd, nCmdShow);
+
+          // set up and initialize Direct3D
+          initD3D(hWnd);
+
+          // enter the main loop:
+
+          MSG msg;
+
+          while(TRUE)
+          {
+              DWORD starting_point = GetTickCount();
+
+              if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+              {
+                  if (msg.message == WM_QUIT)
+                      break;
+
+                  TranslateMessage(&msg);
+                  DispatchMessage(&msg);
+              }
+
+              render_frame();
+
+              // check the 'escape' key
+              if(KEY_DOWN(VK_ESCAPE))
+                  PostMessage(hWnd, WM_DESTROY, 0, 0);
+
+              while ((GetTickCount() - starting_point) < 25);
+          }
+
+          // clean up DirectX and COM
+          cleanD3D();
+
+          return msg.wParam;
+      }
+
+
+      // this is the main message handler for the program
+      LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+      {
+          switch(message)
+          {
+              case WM_DESTROY:
+                  {
+                      PostQuitMessage(0);
+                      return 0;
+                  } break;
+          }
+
+          return DefWindowProc (hWnd, message, wParam, lParam);
+      }
+
+
+      // this function initializes and prepares Direct3D for use
+      void initD3D(HWND hWnd)
+      {
+          d3d = Direct3DCreate9(D3D_SDK_VERSION);
+
+          D3DPRESENT_PARAMETERS d3dpp;
+
+          ZeroMemory(&d3dpp, sizeof(d3dpp));
+          d3dpp.Windowed = FALSE;
+          d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+          d3dpp.hDeviceWindow = hWnd;
+          d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
+          d3dpp.BackBufferWidth = SCREEN_WIDTH;
+          d3dpp.BackBufferHeight = SCREEN_HEIGHT;
+
+          // create a device class using this information and the info from the d3dpp stuct
+          d3d->CreateDevice(D3DADAPTER_DEFAULT,
+                            D3DDEVTYPE_HAL,
+                            hWnd,
+                            D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+                            &d3dpp,
+                            &d3ddev);
+
+          D3DXCreateSprite(d3ddev, &d3dspt);    // create the Direct3D Sprite object
+
+        
+
+          D3DXCreateTextureFromFile(d3ddev, L"img1.png", &sprite1);
+        D3DXCreateTextureFromFile(d3ddev, L"img2.png", &sprite2);
+        D3DXCreateTextureFromFile(d3ddev, L"img3.png", &sprite3);
+
+          return;
+      }
+
+
+      // this is the function used to render a single frame
+      void render_frame(void)
+      {
+          // clear the window to a deep blue
+          d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+
+          d3ddev->BeginScene();    // begins the 3D scene
+
+          d3dspt->Begin(NULL);    // begin sprite drawing
+
+          // draw the sprite
+          D3DXVECTOR3 center(0.0f, 0.0f, 0.0f);
+          D3DXVECTOR3 position1a(x1a, y, 0.0f);
+        D3DXVECTOR3 position2a(x1a + SCREEN_WIDTH, y, 0.0f);
+
+        x1a -= velocidade2X;
+
+        if(position2a.x <= 0)
+          x1a = 0;
+
+        d3dspt->Draw(
+          sprite3, 
+          NULL, 
+          &center, 
+          &position1a, 
+          D3DCOLOR_XRGB(255, 255, 255));
+
+          d3dspt->Draw(
+          sprite3, 
+          NULL, 
+          &center, 
+          &position2a, 
+          D3DCOLOR_XRGB(255, 255, 255));
+
+
+          d3dspt->End();    // end sprite drawing
+
+          d3ddev->EndScene();    // ends the 3D scene
+
+          d3ddev->Present(NULL, NULL, NULL, NULL);
+
+          return;
+      }
+
+
+      // this is the function that cleans up Direct3D and COM
+      void cleanD3D(void)
+      {
+          sprite1->Release();
+        sprite2->Release();
+        sprite3->Release();
+          d3ddev->Release();
+          d3d->Release();
+
+          return;
+      }
+
+    </pre>
+</div>
+
+<!-- triangulo_2.cpp -->
+<div class="tab-pane fade" id="messages">
+    <h1>triangulo_2.cpp</h1>
+    <pre>
+    #include &lt;windows.h&gt;
+    #include &lt;windowsx.h&gt;
+    #include &lt;d3d9.h&gt;
+    #include &lt;d3dx9.h&gt;
+
+    #define SCREEN_WIDTH 800
+    #define SCREEN_HEIGHT 600
+
+    #pragma comment (lib, "d3d9.lib")
+    #pragma comment (lib, "d3dx9.lib")
+
+    LPDIRECT3D9 d3d;    
+    LPDIRECT3DDEVICE9 d3ddev;    
+    LPDIRECT3DVERTEXBUFFER9 v_buffer = NULL;    
+
+    void initD3D(HWND hWnd);    
+    void render_frame(void);    
+    void cleanD3D(void);    
+    void init_graphics(void);    
+
+    struct CUSTOMVERTEX {FLOAT X, Y, Z; DWORD COLOR;};
+    #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_DIFFUSE)
+
+    LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+
+    int WINAPI WinMain(HINSTANCE hInstance,
+                       HINSTANCE hPrevInstance,
+                       LPSTR lpCmdLine,
+                       int nCmdShow)
+    {
+        HWND hWnd;
+        WNDCLASSEX wc;
+
+        ZeroMemory(&wc, sizeof(WNDCLASSEX));
+
+        wc.cbSize = sizeof(WNDCLASSEX);
+        wc.style = CS_HREDRAW | CS_VREDRAW;
+        wc.lpfnWndProc = WindowProc;
+        wc.hInstance = hInstance;
+        wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+        wc.lpszClassName = L"WindowClass";
+
+        RegisterClassEx(&wc);
+
+        hWnd = CreateWindowEx(NULL, L"WindowClass", L"Our Direct3D Program",
+                              WS_OVERLAPPEDWINDOW, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
+                              NULL, NULL, hInstance, NULL);
+
+        ShowWindow(hWnd, nCmdShow);
+
+        initD3D(hWnd);
+
+        //Loop principal
+
+        MSG msg;
+
+        while(TRUE)
+        {
+            while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
+
+            if(msg.message == WM_QUIT)
+                break;
+
+            render_frame();
+        }
+
+        cleanD3D();
+
+        return msg.wParam;
+    }
+
+
+    LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+    {
+        switch(message)
+        {
+            case WM_DESTROY:
+                {
+                    PostQuitMessage(0);
+                    return 0;
+                } break;
+        }
+
+        return DefWindowProc (hWnd, message, wParam, lParam);
+    }
+
+    void initD3D(HWND hWnd)
+    {
+        d3d = Direct3DCreate9(D3D_SDK_VERSION);
+
+        D3DPRESENT_PARAMETERS d3dpp;
+
+        ZeroMemory(&d3dpp, sizeof(d3dpp));
+        d3dpp.Windowed = TRUE;
+        d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+        d3dpp.hDeviceWindow = hWnd;
+        d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
+        d3dpp.BackBufferWidth = SCREEN_WIDTH;
+        d3dpp.BackBufferHeight = SCREEN_HEIGHT;
+
+        d3d->CreateDevice(D3DADAPTER_DEFAULT,
+                          D3DDEVTYPE_HAL,
+                          hWnd,
+                          D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+                          &d3dpp,
+                          &d3ddev);
+
+        init_graphics();
+
+        d3ddev->SetRenderState(D3DRS_LIGHTING, FALSE);
+    }
+
+
+    void render_frame(void)
+    {
+        //d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+
+        d3ddev->BeginScene();
+
+        d3ddev->SetFVF(CUSTOMFVF);
+
+       
+        static float index = 0.0f; index-=20.55f;
+        static float index2 = 0.0f; index2+=0.01f;
+
+        D3DXMATRIX matRotateY;
+
+        D3DXMatrixRotationZ(&matRotateY, index);
+
+
+
+        D3DXMATRIX matScaleY;
+
+        D3DXMatrixScaling(&matScaleY, 0.2f, 0.2f, 0.5f);
+
+        D3DXMATRIX matTransY;
+
+        D3DXMatrixTranslation(&matTransY, index2 , 0, 0);
+
+
+
+        d3ddev->SetTransform(D3DTS_WORLD, &(matRotateY * matTransY * matRotateY * matRotateY));
+
+        D3DXMATRIX matView;
+
+        D3DXMatrixLookAtLH(&matView,
+                           &D3DXVECTOR3 (0.0f, 0.0f, 10.0f),//pos
+                           &D3DXVECTOR3 (0.0f, 0.0f, 0.0f),//ponto para o qual a camera esta olhando
+                           &D3DXVECTOR3 (0.0f, 1.0f, 0.0f));//inclinacao da camera
+
+        d3ddev->SetTransform(D3DTS_VIEW, &matView);
+
+        D3DXMATRIX matProjection;
+
+        D3DXMatrixPerspectiveFovLH(&matProjection,
+                                   D3DXToRadian(45),    //angulo da lente
+                                   (FLOAT)SCREEN_WIDTH / (FLOAT)SCREEN_HEIGHT, //aspect rate (4:3 , etc)
+                                   1.0f,    //plano de corte proximo (near clipping pane)
+                                   100.0f);    //plano de corte distante (far clipping pane)
+
+        d3ddev->SetTransform(D3DTS_PROJECTION, &matProjection);    
+
+        d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
+
+        d3ddev->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+
+        d3ddev->EndScene();
+
+        d3ddev->Present(NULL, NULL, NULL, NULL);
+    }
+
+
+    void cleanD3D(void)
+    {
+        v_buffer->Release();    
+        d3ddev->Release();    
+        d3d->Release();    
+    }
+
+    void init_graphics(void)
+    {
+        CUSTOMVERTEX vertices[] = 
+        {
+            { 3.0f, 3.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0), },
+            { -3.0f, 3.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0), },
+            { 3.0f, -3.0f, 0.0f, D3DCOLOR_XRGB(0, 0, 255), },
+            { -3.0f, -3.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0), },
+            
+        };
+
+        d3ddev->CreateVertexBuffer(4*sizeof(CUSTOMVERTEX),
+                                   0,
+                                   CUSTOMFVF,
+                                   D3DPOOL_MANAGED,
+                                   &v_buffer,
+                                   NULL);
+
+        VOID* pVoid;
+
+        v_buffer->Lock(0, 0, (void**)&pVoid, 0);
+        memcpy(pVoid, vertices, sizeof(vertices));
+        v_buffer->Unlock();
+    }
+
+           </pre>
+    </div>
+
+<!-- beki.cpp -->
+<div class="tab-pane fade" id="settings">
+
+   <h1>beki.cpp</h1>
+   <h4>"beki era o nome do vegeta em um jogo piratao de dragon ball q eu tinha pra gameboy" -FERRES, Lucas Vinicius Brandt</h4>
+   <p class="text-muted">Pra quem não entendeu, esse é o código do coelho</p>
+            
+       <pre>          
+    #include &lt;string&gt;
+    #include &lt;iostream&gt;
+    #include &lt;Windows.h&gt;
+    #include &lt;d3d9.h&gt;
+    #include &lt;d3dx9.h&gt;
+    #include &lt;math.h&gt;
+
+    #pragma comment (lib, "d3d9.lib")
+    #pragma comment (lib, "d3dx9.lib")
+
+
+    #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL) 
+
+    using namespace std;
+
+    CONST UINT SCREEN_WIDTH (1024);
+    CONST UINT SCREEN_HEIGHT (768);
+    CONST FLOAT ASPECT_RATIO ((FLOAT)SCREEN_WIDTH/(FLOAT)SCREEN_HEIGHT);
+
+    LPD3DXMESH nave;      
+    DWORD numMateriais;
+    D3DMATERIAL9* material;   
+    LPDIRECT3DTEXTURE9* textura; //1-) ponteiro para textura
+
+    std::wstring caminhoApp;
+
+    int appRodando = 1;
+    float angulo = 0;
+
+     struct OURCUSTOMVERTEX 
+     {
+         float x,y,z;
+         D3DVECTOR NORMAL;
+     };
+     
+     LRESULT CALLBACK TratamentoEventos(HWND han_Wind,UINT uint_Message,WPARAM parameter1,LPARAM parameter2)
+     {
+         switch(uint_Message)
+         {
+             case WM_KEYDOWN:
+             {
+                 appRodando = 0;
+                 break;
+             }
+             break;
+         }
+     
+         return DefWindowProc(han_Wind,uint_Message,parameter1,parameter2);
+     }
+     
+     HWND NewWindow(LPCTSTR str_Title,int int_XPos, int int_YPos, int int_Width, int int_Height)
+     {
+         WNDCLASSEX estruturaJanela;
+     
+         estruturaJanela.cbSize = sizeof(WNDCLASSEX);
+         estruturaJanela.style = CS_HREDRAW | CS_VREDRAW;
+         estruturaJanela.lpfnWndProc = TratamentoEventos;
+         estruturaJanela.cbClsExtra = 0;
+         estruturaJanela.cbWndExtra = 0;
+         estruturaJanela.hInstance = GetModuleHandle(NULL);
+         estruturaJanela.hIcon = NULL;
+         estruturaJanela.hCursor = NULL;
+         estruturaJanela.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
+         estruturaJanela.lpszMenuName = NULL;
+         estruturaJanela.lpszClassName = L"WindowClassName";
+         estruturaJanela.hIconSm = LoadIcon(NULL,IDI_APPLICATION);
+     
+         RegisterClassEx(&estruturaJanela);
+     
+         return CreateWindowEx(WS_EX_CONTROLPARENT, L"WindowClassName", str_Title, WS_OVERLAPPED | WS_POPUP, 0, 0, int_Width, int_Height, NULL, NULL, GetModuleHandle(NULL), NULL);
+     }
+
+    void CriaLuz(LPDIRECT3DDEVICE9 placaVideo)
+    {
+        D3DLIGHT9 light;
+        D3DMATERIAL9 material;
+
+        ZeroMemory(&light, sizeof(light));
+        light.Type = D3DLIGHT_DIRECTIONAL;    
+        light.Diffuse = D3DXCOLOR(0.5f, 0.9f, 0.5f, 1.0f); //cor da luz
+        light.Position = D3DXVECTOR3(0.0f, 10.0f, 40.0f);
+        light.Direction = D3DXVECTOR3(0.0f, -1.0f, -1.0f);
+        light.Range = 50.0f;    //tamanho do cone
+        light.Phi = D3DXToRadian(80.0f);     
+        light.Theta = D3DXToRadian(40.0f);    
+        light.Falloff = 1.0f;    
+
+        placaVideo->SetLight(0, &light);
+        placaVideo->LightEnable(0, TRUE);
+
+        ZeroMemory(&material, sizeof(D3DMATERIAL9));
+        material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+        material.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
+        placaVideo->SetMaterial(&material); 
+    }
+     
+     LPDIRECT3DDEVICE9 InicializaPlacaVideo(HWND han_WindowToBindTo)
+     {
+
+         LPDIRECT3D9 directX;
+         LPDIRECT3DDEVICE9 placaVideo;
+     
+         directX = Direct3DCreate9(D3D_SDK_VERSION);
+         if (directX == NULL)
+         {
+             MessageBox(han_WindowToBindTo,L"DirectX Runtime library not installed!",L"InicializaPlacaVideo()",MB_OK);
+         }
+     
+         D3DPRESENT_PARAMETERS parametrosApresentacao;
+         ZeroMemory( &parametrosApresentacao, sizeof(parametrosApresentacao) );
+         parametrosApresentacao.Windowed = FALSE;
+         parametrosApresentacao.BackBufferWidth = 1024;
+         parametrosApresentacao.BackBufferHeight = 768;
+         parametrosApresentacao.SwapEffect = D3DSWAPEFFECT_DISCARD;
+         parametrosApresentacao.BackBufferFormat = D3DFMT_A8R8G8B8;
+         parametrosApresentacao.BackBufferWidth = SCREEN_WIDTH;
+         parametrosApresentacao.BackBufferHeight = SCREEN_HEIGHT;
+
+         parametrosApresentacao.EnableAutoDepthStencil = TRUE;   
+         parametrosApresentacao.AutoDepthStencilFormat = D3DFMT_D16; 
+     
+          if (FAILED(directX->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, han_WindowToBindTo, D3DCREATE_HARDWARE_VERTEXPROCESSING, &parametrosApresentacao, &placaVideo)))
+          {
+                 if (FAILED(directX->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, han_WindowToBindTo, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &parametrosApresentacao, &placaVideo)))
+                 {
+                     MessageBox(han_WindowToBindTo,L"Failed to create even the reference device!",L"InicializaPlacaVideo()",MB_OK);
+                 }
+          }
+
+          
+          LPD3DXBUFFER bufferMaterialNave; 
+          std::wstring arquivo = L"bunny.x";
+          std::wstring caminhoModelo;
+          caminhoModelo = caminhoApp.c_str();
+          caminhoModelo.append(arquivo);
+
+          D3DXLoadMeshFromX(caminhoModelo.c_str(),    
+                      D3DXMESH_SYSTEMMEM,    
+                      placaVideo,    
+                      NULL,    
+                      &bufferMaterialNave,    
+                      NULL,    
+                      &numMateriais,    
+                      &nave);
+        
+        D3DXMATERIAL* tempMaterials = (D3DXMATERIAL*)bufferMaterialNave->GetBufferPointer();
+
+        material = new D3DMATERIAL9[numMateriais];
+        textura = new LPDIRECT3DTEXTURE9[numMateriais]; //2-) Iniciamos o array
+
+        for(DWORD i = 0; i < numMateriais; i++)    
+        {
+            material[i] = tempMaterials[i].MatD3D;    
+            material[i].Ambient = material[i].Diffuse;    
+
+            //3-) Carregamos o material
+            try
+            {
+                if(FAILED(D3DXCreateTextureFromFileA(
+                                                placaVideo,
+                                                tempMaterials[i].pTextureFilename,
+                                                &textura[i])))
+                {
+                    textura[i] = NULL;
+                }
+            }
+            catch(exception)
+            {
+                textura[i] = NULL;
+            }
+        }
+
+
+          placaVideo->SetRenderState(D3DRS_LIGHTING, TRUE); 
+          placaVideo->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(50, 50, 50));    
+          placaVideo->SetRenderState(D3DRS_ZENABLE, TRUE);    
+          placaVideo->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); 
+
+          //6-) Filtro de Textura
+            placaVideo->SetSamplerState(0, D3DSAMP_MAXANISOTROPY, 8);
+            placaVideo->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
+            placaVideo->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+            placaVideo->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
+
+          CriaLuz(placaVideo);
+     
+         return placaVideo;
+     }
+     
+     void DesenhaCena(LPDIRECT3DDEVICE9 placaVideo)
+     {
+         placaVideo->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0); 
+         placaVideo->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0,0,0), 1.0f, 0);
+         placaVideo->BeginScene();
+     
+         placaVideo->SetFVF(CUSTOMFVF);
+
+         angulo += .38f;
+         D3DXMATRIX matWorldX;
+         D3DXMATRIX matWorldY;
+         D3DXMATRIX matWorldTransZ;
+         D3DXMatrixRotationX(&matWorldX, D3DXToRadian(-90));
+         D3DXMatrixRotationY(&matWorldY, D3DXToRadian(angulo));
+         D3DXMatrixTranslation(&matWorldTransZ, 0, 0, angulo);
+         placaVideo->SetTransform(D3DTS_WORLD, &(matWorldX * matWorldY * matWorldTransZ));
+
+         D3DXMATRIX matView;
+         D3DXMatrixLookAtLH(
+             &matView,
+             &D3DXVECTOR3(0.0f, 2.0f, 500.0f), //pos da camera
+             &D3DXVECTOR3(0.0f, 0.0f, 0.0f), //local p onde a camera esta olhando
+             &D3DXVECTOR3(0.0f, 1.0f, 0.0f)); //vector up da camera
+
+         placaVideo->SetTransform(D3DTS_VIEW, &matView);
+
+         D3DXMATRIX matProjection;
+
+         D3DXMatrixPerspectiveFovLH(
+             &matProjection,
+             D3DXToRadian(45),
+             ASPECT_RATIO,
+             1.0f,
+             1000.0f);
+         placaVideo->SetTransform(D3DTS_PROJECTION, &matProjection);
+
+        for(DWORD i = 0; i < numMateriais; i++)    
+        {
+            placaVideo->SetMaterial(&material[i]); 
+            nave->DrawSubset(i); 
+
+            //4-) Desenhamos o material
+            if(textura[i] != NULL)    
+            {
+                placaVideo->SetTexture(0, textura[i]);   
+            }
+        }
+     
+         placaVideo->EndScene();
+         placaVideo->Present(NULL, NULL, NULL, NULL);
+     }
+     
+     int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPreviousInstance,LPSTR lpcmdline,int nCmdShow)
+     {
+         //5-) Estamos setando o diretório principal para a aplicação.
+         //caminhoApp = L"C:\\Documents and Settings\\Willians\\Desktop\\FATEC\\Material\\CG\\Prox_Aula\\DirectX_Meshes_X_Texturized\\Debug\\";
+         //SetCurrentDirectory(caminhoApp.c_str());
+
+         MSG msg_Message;
+     
+         HWND han_Window                   = NewWindow(L"DIRECTX", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+         LPDIRECT3DDEVICE9 placaVideo      = InicializaPlacaVideo(han_Window);
+     
+         while(appRodando)
+         {
+             if(PeekMessage(&msg_Message,han_Window,0,0,PM_REMOVE))
+             {
+                 DispatchMessage(&msg_Message);
+             }
+             DesenhaCena(placaVideo);
+         }
+     
+         nave->Release();
+         placaVideo->Release();
+         DestroyWindow(han_Window);
+     
+         return 0;
+     }
+    </pre>
+</div>
+
+<!-- n1 - cg -->
+<div class="tab-pane fade" id="n1cg">
+    <h1>Prova N1 de CG</h1>
+    <pre>
+    #include &lt;string&gt;
+    #include &lt;iostream&gt;
+    #include &lt;Windows.h&gt;
+    #include &lt;d3d9.h&gt;
+    #include &lt;d3dx9.h&gt;
+    #include &lt;math.h&gt;
+
+    #pragma comment (lib, "d3d9.lib")
+    #pragma comment (lib, "d3dx9.lib")
+
+
+    #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL) 
+
+    using namespace std;
+
+    CONST UINT SCREEN_WIDTH (1024);
+    CONST UINT SCREEN_HEIGHT (768);
+    CONST FLOAT ASPECT_RATIO ((FLOAT)SCREEN_WIDTH/(FLOAT)SCREEN_HEIGHT);
+
+    LPD3DXMESH nave;      
+    DWORD numMateriais;
+    D3DMATERIAL9* material;   
+    LPDIRECT3DTEXTURE9* textura; //1-) ponteiro para textura
+
+    std::wstring caminhoApp;
+
+    int appRodando = 1;
+
+    float girar = 0;
+
+     struct OURCUSTOMVERTEX 
+     {
+         float x,y,z;
+         D3DVECTOR NORMAL;
+     };
+     
+     LRESULT CALLBACK TratamentoEventos(HWND han_Wind,UINT uint_Message,WPARAM parameter1,LPARAM parameter2)
+     {
+         switch(uint_Message)
+         {
+             case WM_KEYDOWN:
+             {
+                 appRodando = 0;
+                 break;
+             }
+             break;
+         }
+     
+         return DefWindowProc(han_Wind,uint_Message,parameter1,parameter2);
+     }
+     
+     HWND NewWindow(LPCTSTR str_Title,int int_XPos, int int_YPos, int int_Width, int int_Height)
+     {
+         WNDCLASSEX estruturaJanela;
+     
+         estruturaJanela.cbSize = sizeof(WNDCLASSEX);
+         estruturaJanela.style = CS_HREDRAW | CS_VREDRAW;
+         estruturaJanela.lpfnWndProc = TratamentoEventos;
+         estruturaJanela.cbClsExtra = 0;
+         estruturaJanela.cbWndExtra = 0;
+         estruturaJanela.hInstance = GetModuleHandle(NULL);
+         estruturaJanela.hIcon = NULL;
+         estruturaJanela.hCursor = NULL;
+         estruturaJanela.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
+         estruturaJanela.lpszMenuName = NULL;
+         estruturaJanela.lpszClassName = L"WindowClassName";
+         estruturaJanela.hIconSm = LoadIcon(NULL,IDI_APPLICATION);
+     
+         RegisterClassEx(&estruturaJanela);
+     
+         return CreateWindowEx(WS_EX_CONTROLPARENT, L"WindowClassName", str_Title, WS_OVERLAPPED | WS_POPUP, 0, 0, int_Width, int_Height, NULL, NULL, GetModuleHandle(NULL), NULL);
+     }
+
+    void CriaLuz(LPDIRECT3DDEVICE9 placaVideo)
+    {
+        D3DLIGHT9 light;
+        D3DMATERIAL9 material;
+
+        ZeroMemory(&light, sizeof(light));
+        light.Type = D3DLIGHT_DIRECTIONAL;    
+        light.Diffuse = D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f);
+        light.Position = D3DXVECTOR3(0.0f, 10.0f, 40.0f);
+        light.Direction = D3DXVECTOR3(-80.0f, -270.0f, -140.0f);
+        light.Range = 50.0f;    
+        light.Phi = D3DXToRadian(80.0f);    
+        light.Theta = D3DXToRadian(40.0f);    
+        light.Falloff = 1.0f;    
+
+        placaVideo->SetLight(0, &light);
+        placaVideo->LightEnable(0, TRUE);
+
+        ZeroMemory(&material, sizeof(D3DMATERIAL9));
+        material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+        material.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
+        placaVideo->SetMaterial(&material); 
+    }
+     
+     LPDIRECT3DDEVICE9 InicializaPlacaVideo(HWND han_WindowToBindTo)
+     {
+
+         LPDIRECT3D9 directX;
+         LPDIRECT3DDEVICE9 placaVideo;
+     
+         directX = Direct3DCreate9(D3D_SDK_VERSION);
+         if (directX == NULL)
+         {
+             MessageBox(han_WindowToBindTo,L"DirectX Runtime library not installed!",L"InicializaPlacaVideo()",MB_OK);
+         }
+     
+         D3DPRESENT_PARAMETERS parametrosApresentacao;
+         ZeroMemory( &parametrosApresentacao, sizeof(parametrosApresentacao) );
+         parametrosApresentacao.Windowed = FALSE;
+         parametrosApresentacao.BackBufferWidth = SCREEN_WIDTH;
+         parametrosApresentacao.BackBufferHeight = SCREEN_HEIGHT;
+         parametrosApresentacao.SwapEffect = D3DSWAPEFFECT_DISCARD;
+         parametrosApresentacao.BackBufferFormat = D3DFMT_A8R8G8B8;
+         parametrosApresentacao.BackBufferWidth = SCREEN_WIDTH;
+         parametrosApresentacao.BackBufferHeight = SCREEN_HEIGHT;
+         parametrosApresentacao.MultiSampleType = D3DMULTISAMPLE_4_SAMPLES;
+
+         parametrosApresentacao.EnableAutoDepthStencil = TRUE;   
+         parametrosApresentacao.AutoDepthStencilFormat = D3DFMT_D16; 
+     
+          if (FAILED(directX->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, han_WindowToBindTo, D3DCREATE_HARDWARE_VERTEXPROCESSING, &parametrosApresentacao, &placaVideo)))
+          {
+                 if (FAILED(directX->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, han_WindowToBindTo, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &parametrosApresentacao, &placaVideo)))
+                 {
+                     MessageBox(han_WindowToBindTo,L"Failed to create even the reference device!",L"InicializaPlacaVideo()",MB_OK);
+                 }
+          }
+
+          
+          LPD3DXBUFFER bufferMaterialNave; 
+          std::wstring arquivo = L"tijolo.x";
+          std::wstring caminhoModelo;
+          caminhoModelo = caminhoApp.c_str();
+          caminhoModelo.append(arquivo);
+
+          D3DXLoadMeshFromX(caminhoModelo.c_str(),    
+                      D3DXMESH_SYSTEMMEM,    
+                      placaVideo,    
+                      NULL,    
+                      &bufferMaterialNave,    
+                      NULL,    
+                      &numMateriais,    
+                      &nave);
+        
+        D3DXMATERIAL* tempMaterials = (D3DXMATERIAL*)bufferMaterialNave->GetBufferPointer();
+
+        material = new D3DMATERIAL9[numMateriais];
+        textura = new LPDIRECT3DTEXTURE9[numMateriais]; //2-) Iniciamos o array
+
+        for(DWORD i = 0; i < numMateriais; i++)    
+        {
+            material[i] = tempMaterials[i].MatD3D;    
+            material[i].Ambient = material[i].Diffuse;    
+
+            //3-) Carregamos o material
+            try
+            {
+                if(FAILED(D3DXCreateTextureFromFileA(
+                                                placaVideo,
+                                                tempMaterials[i].pTextureFilename,
+                                                &textura[i])))
+                {
+                    textura[i] = NULL;
+                }
+            }
+            catch(exception)
+            {
+                textura[i] = NULL;
+            }
+        }
+
+
+          placaVideo->SetRenderState(D3DRS_LIGHTING, TRUE); 
+          placaVideo->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(255, 0, 0));    
+          placaVideo->SetRenderState(D3DRS_ZENABLE, TRUE);    
+          placaVideo->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); 
+
+          //6-) Filtro de Textura
+            placaVideo->SetSamplerState(0, D3DSAMP_MAXANISOTROPY, 8);
+            placaVideo->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
+            placaVideo->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+            placaVideo->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
+
+          CriaLuz(placaVideo);
+     
+         return placaVideo;
+     }
+     
+     void DesenhaCena(LPDIRECT3DDEVICE9 placaVideo)
+     {
+         placaVideo->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0); 
+         placaVideo->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0,0,0), 1.0f, 0);
+         placaVideo->BeginScene();
+     
+         placaVideo->SetFVF(CUSTOMFVF);
+
+         girar+=0.2f;
+         
+         D3DXMATRIX matView;
+         D3DXMatrixLookAtLH(
+             &matView,
+             &D3DXVECTOR3(-150.0f, 250.0f, 250.0f),
+             &D3DXVECTOR3(0.0f, 0.0f, 0.0f),
+             &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+
+         D3DXMATRIX giraCam;
+         D3DXMatrixRotationY(&giraCam, girar);
+
+         placaVideo->SetTransform(D3DTS_VIEW, &(giraCam*matView));
+
+         D3DXMATRIX matProjection;
+
+         D3DXMatrixPerspectiveFovLH(
+             &matProjection,
+             D3DXToRadian(45),
+             ASPECT_RATIO,
+             1.0f,
+             1000.0f);
+         placaVideo->SetTransform(D3DTS_PROJECTION, &matProjection);
+
+         D3DXMATRIX matBloco1;
+         // PRIMEIRO BLOCO
+         D3DXMatrixTranslation(&matBloco1, 40.1f, 0, 0); //40.1 só pra ter certeza que não está sobrepondo
+
+         placaVideo->SetTransform(D3DTS_WORLD, &matBloco1);
+
+         //Desenha todos os meshes do primeiro objeto 3D
+         for(DWORD i = 0; i < numMateriais; i++)    
+         {
+            nave->DrawSubset(i); 
+         }
+
+         D3DXMATRIX matBloco2;
+         
+         D3DXMatrixTranslation(&matBloco2, 20, -20, 0); //os blocos de cima sobrepõem os encaixes deste bloco, mas se não fizer assim fica diferente da imagem
+
+         placaVideo->SetTransform(D3DTS_WORLD, &matBloco2);
+
+         //Desenha todos os meshes do segundo objeto 3D
+         for(DWORD i = 0; i < numMateriais; i++)    
+         {
+            nave->DrawSubset(i); 
+         }
+
+         D3DXMATRIX matBloco3;
+         D3DXMatrixIdentity(&matBloco3); //Identity = Nenhuma transformação, substitua esta linha por suas transformações
+         placaVideo->SetTransform(D3DTS_WORLD, &matBloco3);
+
+         //Desenha todos os meshes do terceiro objeto 3D
+         for(DWORD i = 0; i < numMateriais; i++)    
+         {
+            nave->DrawSubset(i); 
+         }
+     
+         placaVideo->EndScene();
+         placaVideo->Present(NULL, NULL, NULL, NULL);
+     }
+     
+     int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPreviousInstance,LPSTR lpcmdline,int nCmdShow)
+     {
+         //5-) Estamos setando o diretório principal para a aplicação.
+         //caminhoApp = L"C:\\Documents and Settings\\Willians\\Desktop\\FATEC\\Material\\CG\\Prox_Aula\\DirectX_Meshes_X_Texturized\\Debug\\";
+         //SetCurrentDirectory(caminhoApp.c_str());
+
+         MSG msg_Message;
+     
+         HWND han_Window                   = NewWindow(L"DIRECTX", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+         LPDIRECT3DDEVICE9 placaVideo      = InicializaPlacaVideo(han_Window);
+     
+         while(appRodando)
+         {
+             if(PeekMessage(&msg_Message,han_Window,0,0,PM_REMOVE))
+             {
+                 DispatchMessage(&msg_Message);
+             }
+             DesenhaCena(placaVideo);
+         }
+     
+         nave->Release();
+         placaVideo->Release();
+         DestroyWindow(han_Window);
+     
+         return 0;
+     }
+    </pre>
+</div>
+
+<!-- n3 - cg -->
+<div class="tab-pane fade" id="n3cg">
+    <h1>Prova N3 de CG</h1>
+    <pre>
+
+    #include &lt;Windows.h&gt;
+    #include &lt;d3d9.h&gt;
+    #include &lt;d3dx9.h&gt;
+    #include &lt;math.h&gt;
+    #include &lt;"strsafe.h"&gt;
+    #include &lt;string&gt;
+    #include &lt;iostream&gt;
+
+    #pragma comment (lib, "d3d9.lib")
+    #pragma comment (lib, "d3dx9.lib")
+
+
+    #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_NORMAL) 
+    #define KEY_DOWN(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
+
+    using namespace std;
+
+    CONST UINT SCREEN_WIDTH (1024);
+    CONST UINT SCREEN_HEIGHT (768);
+    CONST FLOAT ASPECT_RATIO ((FLOAT)SCREEN_WIDTH/(FLOAT)SCREEN_HEIGHT);
+
+    LPD3DXMESH Alavanca;      
+    DWORD numMateriaisAlavanca;
+    D3DMATERIAL9* materialAlavanca;   
+    LPDIRECT3DTEXTURE9* texturaAlavanca; 
+
+    LPD3DXMESH Roda;      
+    DWORD numMateriaisRoda;
+    D3DMATERIAL9* materialRoda;   
+    LPDIRECT3DTEXTURE9* texturaRoda; 
+
+    std::wstring caminhoApp;
+
+    int appRodando = 1;
+
+     struct OURCUSTOMVERTEX 
+     {
+         float x,y,z;
+         D3DVECTOR NORMAL;
+     };
+     
+     LRESULT CALLBACK TratamentoEventos(HWND han_Wind,UINT uint_Message,WPARAM parameter1,LPARAM parameter2)
+     {
+         switch(uint_Message)
+         {
+             case WM_KEYDOWN:
+             {
+                 //bazinga
+                 break;
+             }
+             break;
+         }
+     
+         return DefWindowProc(han_Wind,uint_Message,parameter1,parameter2);
+     }
+     
+     HWND NewWindow(LPCTSTR str_Title,int int_XPos, int int_YPos, int int_Width, int int_Height)
+     {
+         WNDCLASSEX estruturaJanela;
+     
+         estruturaJanela.cbSize = sizeof(WNDCLASSEX);
+         estruturaJanela.style = CS_HREDRAW | CS_VREDRAW;
+         estruturaJanela.lpfnWndProc = TratamentoEventos;
+         estruturaJanela.cbClsExtra = 0;
+         estruturaJanela.cbWndExtra = 0;
+         estruturaJanela.hInstance = GetModuleHandle(NULL);
+         estruturaJanela.hIcon = NULL;
+         estruturaJanela.hCursor = NULL;
+         estruturaJanela.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
+         estruturaJanela.lpszMenuName = NULL;
+         estruturaJanela.lpszClassName = L"WindowClassName";
+         estruturaJanela.hIconSm = LoadIcon(NULL,IDI_APPLICATION);
+     
+         RegisterClassEx(&estruturaJanela);
+     
+         return CreateWindowEx(WS_EX_CONTROLPARENT, L"WindowClassName", str_Title, WS_OVERLAPPED | WS_POPUP, 0, 0, int_Width, int_Height, NULL, NULL, GetModuleHandle(NULL), NULL);
+     }
+
+    void CriaLuz(LPDIRECT3DDEVICE9 placaVideo)
+    {
+        D3DLIGHT9 light;
+        D3DMATERIAL9 material;
+
+        ZeroMemory(&light, sizeof(light));
+        light.Type = D3DLIGHT_DIRECTIONAL;    
+        light.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+        light.Position = D3DXVECTOR3(0.0f, 1.0f, 100.0f);
+        light.Direction = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+        light.Range = 40.0f;    
+        light.Phi = D3DXToRadian(50.0f);    
+        light.Theta = D3DXToRadian(40.0f);    
+        light.Falloff = 1.0f;    
+
+        placaVideo->SetLight(0, &light);
+        placaVideo->LightEnable(0, TRUE);
+
+        ZeroMemory(&material, sizeof(D3DMATERIAL9));
+        material.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+        material.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
+        placaVideo->SetMaterial(&material); 
+    }
+     
+     LPDIRECT3DDEVICE9 InicializaPlacaVideo(HWND han_WindowToBindTo)
+     {
+
+         LPDIRECT3D9 directX;
+         LPDIRECT3DDEVICE9 placaVideo;
+     
+         directX = Direct3DCreate9(D3D_SDK_VERSION);
+         if (directX == NULL)
+         {
+             MessageBox(han_WindowToBindTo,L"DirectX Runtime library not installed!",L"InicializaPlacaVideo()",MB_OK);
+         }
+     
+         D3DPRESENT_PARAMETERS parametrosApresentacao;
+         ZeroMemory( &parametrosApresentacao, sizeof(parametrosApresentacao) );
+         parametrosApresentacao.Windowed = FALSE;
+         parametrosApresentacao.BackBufferWidth = 1024;
+         parametrosApresentacao.BackBufferHeight = 768;
+         parametrosApresentacao.SwapEffect = D3DSWAPEFFECT_DISCARD;
+         parametrosApresentacao.BackBufferFormat = D3DFMT_A8R8G8B8;
+         parametrosApresentacao.BackBufferWidth = SCREEN_WIDTH;
+         parametrosApresentacao.BackBufferHeight = SCREEN_HEIGHT;
+
+         parametrosApresentacao.EnableAutoDepthStencil = TRUE;   
+         parametrosApresentacao.AutoDepthStencilFormat = D3DFMT_D16; 
+     
+          if (FAILED(directX->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, han_WindowToBindTo, D3DCREATE_HARDWARE_VERTEXPROCESSING, &parametrosApresentacao, &placaVideo)))
+          {
+                 if (FAILED(directX->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, han_WindowToBindTo, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &parametrosApresentacao, &placaVideo)))
+                 {
+                     MessageBox(han_WindowToBindTo,L"Failed to create even the reference device!",L"InicializaPlacaVideo()",MB_OK);
+                 }
+          }
+
+          //Alavanca
+          LPD3DXBUFFER bufferMaterialAlavanca; 
+          std::wstring arquivo = L"alavanca.X";
+          std::wstring caminhoModelo;
+          caminhoModelo = caminhoApp.c_str();
+          caminhoModelo.append(arquivo);
+
+          D3DXLoadMeshFromX(caminhoModelo.c_str(),    
+                      D3DXMESH_SYSTEMMEM,    
+                      placaVideo,    
+                      NULL,    
+                      &bufferMaterialAlavanca,    
+                      NULL,    
+                      &numMateriaisAlavanca,    
+                      &Alavanca);
+        
+        D3DXMATERIAL* tempMaterials = (D3DXMATERIAL*)bufferMaterialAlavanca->GetBufferPointer();
+
+        materialAlavanca = new D3DMATERIAL9[numMateriaisAlavanca];
+        texturaAlavanca = new LPDIRECT3DTEXTURE9[numMateriaisAlavanca]; //2-) Iniciamos o array
+
+        for(DWORD i = 0; i < numMateriaisAlavanca; i++)    
+        {
+            materialAlavanca[i] = tempMaterials[i].MatD3D;    
+            materialAlavanca[i].Ambient = materialAlavanca[i].Diffuse;    
+
+            //3-) Carregamos o materialAlavanca
+            try
+            {
+                if(FAILED(D3DXCreateTextureFromFileA(
+                                                placaVideo,
+                                                tempMaterials[i].pTextureFilename,
+                                                &texturaAlavanca[i])))
+                {
+                    texturaAlavanca[i] = NULL;
+                }
+            }
+            catch(exception)
+            {
+                texturaAlavanca[i] = NULL;
+            }
+        }
+
+
+        //Roda
+          LPD3DXBUFFER bufferMaterialRoda; 
+          arquivo = L"Roda.X";
+          caminhoModelo = caminhoApp.c_str();
+          caminhoModelo.append(arquivo);
+
+          D3DXLoadMeshFromX(caminhoModelo.c_str(),    
+                      D3DXMESH_SYSTEMMEM,    
+                      placaVideo,    
+                      NULL,    
+                      &bufferMaterialRoda,    
+                      NULL,    
+                      &numMateriaisRoda,    
+                      &Roda);
+        
+        tempMaterials = (D3DXMATERIAL*)bufferMaterialRoda->GetBufferPointer();
+
+        materialRoda = new D3DMATERIAL9[numMateriaisRoda];
+        texturaRoda = new LPDIRECT3DTEXTURE9[numMateriaisRoda]; //2-) Iniciamos o array
+
+        for(DWORD i = 0; i < numMateriaisRoda; i++)    
+        {
+            materialRoda[i] = tempMaterials[i].MatD3D;    
+            materialRoda[i].Ambient = materialRoda[i].Diffuse;    
+
+            //3-) Carregamos o materialRoda
+            try
+            {
+                if(FAILED(D3DXCreateTextureFromFileA(
+                                                placaVideo,
+                                                tempMaterials[i].pTextureFilename,
+                                                &texturaRoda[i])))
+                {
+                    texturaRoda[i] = NULL;
+                }
+            }
+            catch(exception)
+            {
+                texturaRoda[i] = NULL;
+            }
+        }
+
+
+
+          placaVideo->SetRenderState(D3DRS_LIGHTING, TRUE); 
+          placaVideo->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(88, 55, 37));    
+          placaVideo->SetRenderState(D3DRS_ZENABLE, TRUE);    
+          placaVideo->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); 
+
+          //6-) Filtro de Textura
+            placaVideo->SetSamplerState(0, D3DSAMP_MAXANISOTROPY, 8);
+            placaVideo->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
+            placaVideo->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+            placaVideo->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
+
+          CriaLuz(placaVideo);
+     
+         return placaVideo;
+     }
+
+     void desenhaAlavanca(LPDIRECT3DDEVICE9 placaVideo)
+     {
+        for(DWORD i = 0; i < numMateriaisAlavanca; i++)    // Desenha a Alavanca
+        {
+            placaVideo->SetMaterial(&materialAlavanca[i]); 
+
+            Alavanca->DrawSubset(i); 
+            if(texturaAlavanca[i] != NULL)    
+            {
+                placaVideo->SetTexture(0, texturaAlavanca[i]);   
+            }
+        }
+     }
+
+      void desenhaRoda(LPDIRECT3DDEVICE9 placaVideo)
+     {
+        for(DWORD i = 0; i < numMateriaisRoda; i++)    // Desenha a Roda
+        {
+            placaVideo->SetMaterial(&materialRoda[i]); 
+
+            Roda->DrawSubset(i); 
+            if(texturaRoda[i] != NULL)    
+            {
+                placaVideo->SetTexture(0, texturaRoda[i]);   
+            }
+        }
+     }
+
+    int angulo;
+    bool lado;
+     void DesenhaCena(LPDIRECT3DDEVICE9 placaVideo)
+     {
+
+         if(KEY_DOWN(VK_ESCAPE)){
+             appRodando = 0;
+         }
+
+         if(KEY_DOWN(VK_LEFT)){
+             lado = true;
+         }
+
+         if(KEY_DOWN(VK_RIGHT)){
+             lado = false;
+         }
+
+         placaVideo->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0); 
+         placaVideo->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0,0,0), 1.0f, 0);
+         placaVideo->BeginScene();
+     
+         placaVideo->SetFVF(CUSTOMFVF);
+
+         D3DXMATRIX matView;
+         D3DXMatrixLookAtLH(
+             &matView,
+             &D3DXVECTOR3(0.0f, 0.0f, 300.0f), 
+             &D3DXVECTOR3(0.0f,0.0f, 0.0f),
+             &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+
+         placaVideo->SetTransform(D3DTS_VIEW, &matView);
+
+         D3DXMATRIX matProjection;
+
+         D3DXMatrixPerspectiveFovLH(
+             &matProjection,
+             D3DXToRadian(45),
+             ASPECT_RATIO,
+             1.0f,
+             1000.0f);
+         placaVideo->SetTransform(D3DTS_PROJECTION, &matProjection);
+
+         if(lado){
+            angulo--;
+         } else {
+            angulo++;
+         }
+
+         D3DXMATRIX matrizWorldAlavanca;
+         D3DXMatrixRotationX(&matrizWorldAlavanca, D3DXToRadian(90));
+         D3DXMATRIX matAlav;
+         D3DXMatrixTranslation (&matAlav, 5, 160.0f, -450.0f);
+         D3DXMATRIX matGiraAlav;
+         D3DXMatrixRotationZ(&matGiraAlav, D3DXToRadian(angulo));
+         D3DXMATRIX matLOL; //matriz da risada
+         D3DXMatrixRotationY(&matLOL, D3DXToRadian(10));
+         matGiraAlav = matLOL*matGiraAlav;
+         placaVideo->SetTransform(D3DTS_WORLD, &(matrizWorldAlavanca * matAlav * matGiraAlav));
+         desenhaAlavanca(placaVideo);
+
+         D3DXMATRIX matrizWorldRoda;
+         D3DXMatrixRotationX(&matrizWorldRoda, D3DXToRadian(90));
+         D3DXMATRIX matPosRoda;
+         D3DXMatrixTranslation (&matPosRoda, 0, 0, -500.0f);
+         D3DXMATRIX matGiraRoda;
+         D3DXMatrixRotationZ (&matGiraRoda, D3DXToRadian(angulo));
+
+         placaVideo->SetTransform(D3DTS_WORLD, &(matrizWorldRoda*matPosRoda*matGiraRoda));
+         desenhaRoda(placaVideo);
+
+
+
+         placaVideo->EndScene();
+         placaVideo->Present(NULL, NULL, NULL, NULL);
+     }
+
+     int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPreviousInstance,LPSTR lpcmdline,int nCmdShow)
+     {
+         MSG msg_Message;
+     
+         HWND han_Window                   = NewWindow(L"DIRECTX", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+         LPDIRECT3DDEVICE9 placaVideo      = InicializaPlacaVideo(han_Window);
+     
+         while(appRodando)
+         {
+             if(PeekMessage(&msg_Message,han_Window,0,0,PM_REMOVE))
+             {
+                 DispatchMessage(&msg_Message);
+             }
+             DesenhaCena(placaVideo);
+         }
+     
+         Alavanca->Release();
+         Roda->Release();
+         placaVideo->Release();
+         DestroyWindow(han_Window);
+     
+         return 0;
+     }
+    </pre>
+</div>
+
+<!-- web -->
+<div class="tab-pane fade" id="n1web">
+    <h1>Prova N1 de JogWeb</h1>
+    <pre>
+        script
+            var canvas;
+            var context;
+
+            var carroX = 0;
+            var carroY = 497; //arrumar com altura do canvas - altura do carro
+
+            var TECLA_SETA_ESQUERDA  = 37;
+            var TECLA_SETA_DIREITA  = 39;
+
+            var velocidadeCarro = 15;
+
+            var limiteTela;
+            var batidas = 0;
+
+            var limiteVelocidade = 15;
+            var anguloRadianos = .9; 
+
+            function Inicializar(){
+                canvas = document.getElementById('meuCanvas');
+                context = canvas.getContext('2d');
+
+                imgFundo = new Image();
+                imgFundo.src = "fundo.png";         
+
+                imgCarro = new Image();
+                imgCarro.src = "carro.png";
+
+                imgMacaco = new Image();
+                imgMacaco.src = "macaco.png"
+
+                imgIma = new Image();
+                imgIma.src = "ima_corda.png";
+
+                context.font = '20px Helvetica';
+                context.fillStyle = 'white';    
+
+                limiteTela = (canvas.width - 158 - 58);
+                console.log(limiteTela);
+
+                setInterval(Loop, 1000 / 60)    
+            }
+
+            function Loop(){
+                Desenhar();
+            }
+
+            function Desenhar () {
+                context.drawImage(imgFundo,0,0);
+                context.drawImage(imgCarro,carroX,carroY);
+                context.drawImage(imgMacaco,carroX+100,carroY-25);
+
+                context.save();
+
+                var imaVertPivot = imgIma.height;
+                var imaHoriPivot = 0;
+                var imaCentroTela = canvas.width / 2 - 69;
+                context.translate(imaVertPivot, imaHoriPivot);
+                context.rotate(anguloRadianos);
+                context.translate(-(imaVertPivot), -(imaHoriPivot));
+                context.drawImage(imgIma, imaCentroTela, 0);
+
+                context.restore();
+
+                context.fillText('Batidas: ' + batidas, 70, 30);
+            }
+
+            function VerificaTeclado(evento){
+
+            if(carroX > 0){
+                if(evento.keyCode == TECLA_SETA_ESQUERDA){
+                    carroX -= velocidadeCarro;
+                    anguloRadianos += .04;
+                }
+            } else {
+                batidas++;
+            }
+
+            if(carroX < limiteTela){
+                if(evento.keyCode == TECLA_SETA_DIREITA){
+                    anguloRadianos -=.04;
+                    carroX += velocidadeCarro;
+                }
+            } else {
+                batidas++;
+            }
+
+            }
+        /script
+
+        body onload="Inicializar();" onkeydown="VerificaTeclado(event);"
+        canvas id="meuCanvas" width="800" height="600"
+        Seu browser não suporta canvas!
+        canvas/
+    </body>
+
+    </pre>
+</div>
+
+<!-- udk -->
+<div class="tab-pane fade" id="UDK">
+  <h1>UDK</h1>
+  <h2>Laboratório de Programação</h2>
+  <div class="alert alert-danger">Não se esqueça de desligar a Global Illumination e ativar o Game Type! <span class="text-muted">porque senão vai ficar leeeeento</span> </div>
+  <img src="http://i.imgur.com/73OcDot.png">
+  <img src="http://i.imgur.com/G5zYIux.png">
+  <img src="http://i.imgur.com/FaGXPTg.png">
+
+
+  <h4>Cheatsheet</h4>
+  <span class="text-muted">Como fazer aquele negócio que você nunca lembra como fazer</span><br>  
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <!-- Colocar água -->
+  <div class="panel panel-default">
+
+      <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            Como colocar água
+          </a>
+        </h4>
+      </div>
+
+      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+            <p><strong>Superfície da água</strong><br><img src="http://i.imgur.com/EDenarv.png"><br>
+            <strong>Volume da água</strong><br><img src="http://i.imgur.com/uvoPEZG.png"><br>
+            <strong>Água "borrada"</strong><br><img src="http://i.imgur.com/sbnouU1.png"><img src="http://i.imgur.com/7UWQmU0.png"><br>
+            </p>
+            <a href="http://i.imgur.com/ilUEpiF.png">Efeito final</a>
+        </div>
+      </div>
+
+  </div>
+
+<div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Kismet
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <p>
+          <strong>Static Mesh no Content Browser como InterpActor</strong><br><img src="http://i.imgur.com/6rJuWem.png"><br>
+          <strong>Brush no local, como TriggerVolume</strong><br><img src="http://i.imgur.com/YtEK6X4.png"><br>
+          <strong>No Kismet, nova Matinee, criar referência a Trigger</strong><br><img src="http://i.imgur.com/Muf7Zt3.png"><img src="http://i.imgur.com/KdjXC7u.png"><br>
+          <strong>No Matinee, grupo, movement track e link com objeto</strong><br><img src="http://i.imgur.com/FF9aLpH.png"><img src="http://i.imgur.com/x2UvZZ6.png"><br>
+                                                                                  <img src="http://i.imgur.com/cHocKJB.png"><img src="http://i.imgur.com/aOQOQcG.png">
+          <strong>Selecionar track, apertar enter para cada keyframe, mover mesh</strong><br><img src="http://i.imgur.com/p9j7JBF.png"><img src="http://i.imgur.com/hUx68Uw.png"><br>
+          <strong>De volta no Kismet, evento de toque, trigger infinito</strong><br><img src="http://i.imgur.com/hyvLK8j.png"><img src="http://i.imgur.com/lTXs3m4.png"><br>
+          <strong>Fazer as ligações</strong><br><img src="http://i.imgur.com/LZHurKS.png">          
+        </p>
+        <a href="http://a.pomf.se/qjcfoq.webm">Efeito final</a>
+        <p>
+          <strong>Toggleable Light</strong><span class="text-muted"> A luz está nas Actor Classes do Content Browser</span><br><img src="http://i.imgur.com/5GuxjQn.png"><br>
+          <a href="http://a.pomf.se/kalmkz.webm">Escrever na tela (Clique para vídeo do resultado)</a><br><img src="http://i.imgur.com/pfn2YvI.png">
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <h4>Lembretes:</h4>
+  Meshes:
+  <ul>
+    <li>Static Mesh: parado</li>
+    <li>RigidBody: sofre colisões</li>
+    <li>InterpActor: Para animações com o Matinee</li>
+  </ul>
+  
+
+</div>
+
+<!-- sobre -->
+<div class="tab-pane fade" id="sobre">
+  <h1>Sobre o /consulta</h1>
+  <h2>/consulta</h2>
+  <p>O /consulta foi criado para que os alunos pudessem colaborar e ter uma consulta organizada e fácil de usar nas provas onde consulta à internet é permitida. O /consulta é parte do projeto <a href="http://ludoteca.github.io">Ludoteca</a>.</p>
+  <h2>Contato</h2>
+  <p>É só procurar o <a href="http://loloop.github.io/">Mauricio</a> <!-- não posso deixar de fazer aquela propaganda bacana né --> na faculdade.</p>
+  <h2>To-Do list:</h2>
+  <span class="text-muted">Coisas que o Mauricio ainda quer fazer</span>
+  <p>Colabore para que isso seja feito! Dê Fork&Pull no <a href="http://github.com/ludoteca/consulta">GitHub!</a></p>
+  <ul>
+    <li>Arrumar as <\tags> de dentro dos códigos</li>
+    <li>Separar o /consulta em várias páginas <span class="text-muted">porque ninguém aguenta mais ficar editando um arquivo html de 2000 linhas</span></li>
+    <li>Incorporar <a href="http://jekyllrb.com">Jekyll</a> no Consulta <span class="text-muted">pra facilitar a colaboratividade no git</span></li>
+    <!-- instalar algum plugin/fw pro código ficar legível
+         atualizar para o bootstrap 3.3  
+         e talvez escrever um css pro negócio ficar bonitinho
+         escrever um readme.md ajudaria pra caralho também -->
+  </ul>
+</div>
+
+    </div>
+    </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- compiled and minified Bootstrap JavaScript -->
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script>
+        //JavaScript para as Tabs
+        $('#myTab a').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+        })
+        </script>
+    </body>
+</html>
