@@ -3,7 +3,7 @@ title: "/consulta"
 description: > # this means to ignore newlines until "baseurl:"
   O /consulta foi criado para que os alunos pudessem colaborar e ter uma consulta organizada e fácil de usar nas provas onde consulta à internet é permitida. O /consulta é parte do projeto Ludoteca.
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://ludoteca.github.io" # the base hostname & protocol for your site
+url: "http://ludoteca.github.io/consulta/" # the base hostname & protocol for your site
 github_username:  ludoteca
 
 # Build settings
