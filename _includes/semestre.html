@@ -1,0 +1,8 @@
+{% if site.{{include.foo}} == %}
+    {% include conteudovazio.html %}
+{% else %}
+	<h2>Artigos e códigos fonte em geral</h2>
+	{% for artigo in site.{{include.foo}} %}
+		<a href="{{ artigo.url }}">{{ artigo.nome }}</a><br/>
+    {% endfor %}
+{% endif %}
