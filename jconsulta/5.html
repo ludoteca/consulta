@@ -1,0 +1,10 @@
+---
+layout: default
+title: 5
+---
+<h1>Quinto Semestre</h1>
+	<div class="artigos">
+	    {% for artigo in site.quintosemestre %}
+	      <a href="{{ artigo.url }}">{{ artigo.nome }}</a><br/>
+	    {% endfor %}
+    </div>
