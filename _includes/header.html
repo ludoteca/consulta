@@ -15,7 +15,7 @@
       <ul class="nav nav-pills" id="myTab">
         {% for page in site.pages %}
           {% if page.title %}
-            <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+            <li><a href="/consulta/{{ page.url }}">{{ page.title }}</a></li>
           {% endif %}
         {% endfor %}
       </ul>
