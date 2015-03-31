@@ -4,10 +4,10 @@
     <title>/consulta</title>
     <description>O /consulta foi criado para que os alunos pudessem colaborar e ter uma consulta organizada e fácil de usar nas provas onde consulta à internet é permitida. O /consulta é parte do projeto Ludoteca.
 </description>
-    <link>http://ludoteca.github.io/</link>
-    <atom:link href="http://ludoteca.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 24 Feb 2015 13:09:00 -0300</pubDate>
-    <lastBuildDate>Tue, 24 Feb 2015 13:09:00 -0300</lastBuildDate>
+    <link>http://ludoteca.github.io/consulta//</link>
+    <atom:link href="http://ludoteca.github.io/consulta//feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 31 Mar 2015 11:45:22 -0300</pubDate>
+    <lastBuildDate>Tue, 31 Mar 2015 11:45:22 -0300</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
   </channel>
