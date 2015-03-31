@@ -139,78 +139,79 @@ Software em domínio público é o software que não tem seu direito protegido p
 # Parte B - Locke, trabalho, etc
 
 #####20\. John Locke, em seu Segundo tratado sobre o governo, explica que originalmente Deus criou o mundo e a natureza. O que é o Estado de Natureza a esse autor e a quem pertencem as coisas que estão no estado de natureza?
-     *Estado de natureza é o estado das coisas sem a intervenção do trabalho. Pertencem a todos.*
+*Estado de natureza é o estado das coisas sem a intervenção do trabalho. Pertencem a todos.*
 
 #####21\. O que é trabalho para Locke?
-     *Alteração do estado de natureza.*
+*Alteração do estado de natureza.*
 
 #####22\. Como nasce a propriedade para John Locke?
-     22. A propriedade nasce com a remoção das coisas do estado comum.
+*A propriedade nasce com a remoção das coisas do estado comum.*
 
 #####23\. Por que a propriedade de uma pessoa, conseguida pelo trabalho, não pode ser contestada por outra pessoa, segundo a teoria de John Locke?
-     23. A propriedade foi obtida através do trabalho, e o trabalho é fruto de sua própria energia/esforço.
+*A propriedade foi obtida através do trabalho, e o trabalho é fruto de sua própria energia/esforço.*
 
 #####24\. Em Locke, a natureza é infinita. O que isso significa?
-     24. BAITZ, Ricardo: Deus criou a natureza e a natureza é infinita porque sempre é possível ir mais longe e encontrar mais natureza. A natureza criada por Deus é para todos.
+*Deus criou a natureza e a natureza é infinita porque sempre é possível ir mais longe e encontrar mais natureza. A natureza criada por Deus é para todos.*
 
 #####25\. Por que as pessoas preferem regiões onde o trabalho já esteja materializado (Londres, por exemplo), a irem em áreas novas, como era o caso dos Estados Unidos?
-     25. Devido ao conforto e ao valor agregado às produções feitas na região.
+*Devido ao conforto e ao valor agregado às produções feitas na região.*
 
 #####26\. Para Locke, uma pessoa pode obter quantas propriedades conseguir, desde que não cometa um ato em específico. O que um homem não deve fazer quando do exercício de sua propriedade?
-     26. Desperdiçar.
+*Desperdiçar.*
 
 #####27\. John Locke afirma que é, mediante o trabalho, que alguém se realiza. Marx afirma o contrário. Explique as diferenças e posicione-se face aos dois autores.
-     27. Para Locke, quanto mais você trabalha, mais coisas você tem. Para Marx, quanto mais você trabalha, menos o seu trabalho vale.
+*Para Locke, quanto mais você trabalha, mais coisas você tem. Para Marx, quanto mais você trabalha, menos o seu trabalho vale.*
 
 #####28\. O que é trabalho alienado em Marx? Por que Marx afirma que quanto mais alguém faz trabalho alienado, menos ele se realiza enquanto indivíduo?
-     28. É o trabalho para os outros. Quanto mais você trabalha, o seu trabalho tem menos valor agregado.
+*É o trabalho para os outros. Quanto mais você trabalha, o seu trabalho tem menos valor agregado.*
 
 #####29\. Diferencie trabalho enquanto atividade e trabalho enquanto alienação, respaldando-se no terceiro manuscrito de Marx.
-     29. Atividade: quando você se identifica com o que faz, para suprir uma necessidade; Alienação: tendência do trabalhador é trabalhar por dinheiro. Dinheiro == Alienação.
+*Atividade: quando você se identifica com o que faz, para suprir uma necessidade; Alienação: tendência do trabalhador é trabalhar por dinheiro. Dinheiro == Alienação.*
 
 #####30\. Rifkin afirma que, no futuro, faltarão empregos. Ele diz que as máquinas desempregam, e que o trabalho passou do primeiro setor ao segundo setor, e depois migrou do segundo setor para o terceiro setor da economia. Atualmente, assiste-se a automação do terceiro setor. Existe quarto setor da economia? Como você entende o argumento de Rifkin?
-     30. Não existe quarto setor. A ideia de Rifkin é que se crie um novo setor.
+*Não existe quarto setor. A ideia de Rifkin é que se crie um novo setor.*
 
 #####31\. POCHMANN expõe que as novas gerações não devem trabalhar cedo, e precisam se educar mais tempo. Ele também menciona que o conhecimento deve ser contínuo, e para a vida. O que isso significa?
-     31. Reciclagem (continuar aprendendo até morrer)
+*Reciclagem (continuar aprendendo até morrer)*
 
 #####32\. Pochmann apresenta a expectativa de vida para as pessoas quando o mundo era agrário, assim como quando o mundo se tornou urbano industrial e na atualidade, quando deixamos de ser industriais. Apresente qual era a média de idade em cada época e a diferença do trabalho em cada momento da história.
-     32. 
+
+
 #####33\. SROUR dita sobre as revoluções silenciosas. O que foi o período neolítico e o que ele introduziu à humanidade?
-     33. Quando o homem começou a trabalhar com a agricultura. O homem deixa de ser nomádico.
+*Quando o homem começou a trabalhar com a agricultura. O homem deixa de ser nomádico.*
 
 #####34\. O que é a revolução digital? Quais as características do trabalho nesse período ?
-     34. Revolução digital é o momento onde o homem começa a trabalhar com as ferramentas digitais. Trabalho imaterial.
+*Revolução digital é o momento onde o homem começa a trabalhar com as ferramentas digitais. Trabalho imaterial.*
 
 #####35\. As corporações de ofício estabeleceram os primeiros códigos de ética profissional. Explique a frase, justificando-a.
-     35. As corporações de ofício estabeleceram regras de uso, cobrança e competição.
+*As corporações de ofício estabeleceram regras de uso, cobrança e competição.*
 
 #####36\. Dê as características do trabalho no período industrial
-     36. 
+
 
 #####37\. Sobre as corporações de ofício, quem redige os códigos de ética profissional? E quem fiscaliza a ética profissional nesse período?
-     37. Eles mesmos.
+*Eles mesmos.*
 
 #####38\. O que é uma profissão regulamentada? Quais são os requisitos para exercê-la?
-     38. Profissão regulamentada é a profissão amparada pelos artifícios da lei. Esta profissão deve ser prevista na lei.
+*Profissão regulamentada é a profissão amparada pelos artifícios da lei. Esta profissão deve ser prevista na lei.*
 
 #####39\. Diferencie atividade e trabalho
-     39. Trabalho == Negativo, só trabalha quando perdeu a condição de ser gente, obrigado a fazer. Mãe cuidando de um bebê: atividade.
+*Trabalho == Negativo, só trabalha quando perdeu a condição de ser gente, obrigado a fazer. Mãe cuidando de um bebê: atividade.*
 
 #####40\. Como era a atividade humana ontes do homem se fixar e prover a agricultura?
-     40. Caça e coleta
+*Caça e coleta*
 
 #####41\. As corporações de ofício estabeleceram os primeiros códigos de ética profissionais. Explique o porque.
-     41. Para evitar prejuízos
+*Para evitar prejuízos.*
 
 #####42\. Explique por que LOCKE apontava que a natureza era infinita e o que não poderia se realizar quando de sua apropriação pelos homens.
-     42. Ver questão 24
+*Ver questão 24*
 
 #####43\. Marx aponta que quanto mais o homem trabalha profissionalmente - vendendo sua força de trabalho para a compra de coisas - mais ele se aliena. Explique o que é trabalho alienado e opine sobre o tema.
-     43. ver questão 28
+*Ver questão 28*
 
 #####44\. POCHMANN expõe que na sociedade da informação as pessoas deveriam se dedicar a estudar e só trabalharem após concluirem a faculdade. Como você se posiciona frente a essa afirmação?
-     44. Resposta pessoal
+*Resposta pessoal*
 
 #####45\. RIFKIN dita que o trabalho é uma categoria em diminuição ou extinção. Posicione-se face aos argumentos do autor e o advento da informática.
-     45. Resposta pessoal
+*Resposta pessoal*
