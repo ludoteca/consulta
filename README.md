@@ -9,5 +9,6 @@ Enfim, pra contribuir pro projeto é só conversar com o [Mauricio](http://loloo
 # to-do
 Arrumar o suporte mobile
 Corrigir os prepends
-Escrever guias decentes de como contribuir para o projeto (Quem sabe assim todo mundo para de me pedir as coisas e tenta fazer os commits aqui :p )
+Escrever guias decentes de como contribuir para o projeto (Quem sabe assim todo mundo para de me pedir as coisas e tenta fazer os commits aqui :p ) -- Também inclui fazer o projeto funcionar direito com jekyll serve
 Incluir um sumário das categorias no toolkit quando ele ficar muito grande
+Dividir o toolkit em uma collection
