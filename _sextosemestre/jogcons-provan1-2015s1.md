@@ -5,6 +5,27 @@ nome: Jogos Para Consoles - 2015 S1 - Prova N1
 
 # Jogos Para Consoles - Prova N1
 
+## Questões
+
+1-) [1 pt] Em uma tela de 512x512(em modo janela), desenhe o fundo do jogo utilizando a imagem fundo.jpg
+
+2-) [1 pt] Desenhe a imagem tanque_corpo.png
+
+3-) [1 pt] Permita que as setas (esquerda ou direita) do teclado gire o tanque sobre seu centro.
+
+4-) [1 pt] Utilize funções trigonométricas para fazer o corpo do tanque avançar ou retroceder na direção cujo aponta utilizando as teclas para cima e baixo do teclado.
+
+5-) [2,5 pts] Crie um scroll vertical que mova o fundo da tela para baixo apenas quando o tanque tocar a região aproximada da linha vermelha do exemplo.jpg, neste caso o tanque deve parar de subir.
+
+	A-) O Tanque deve ter movimento livre enquanto não tocar a linha vermelha da tela.
+
+6-) [0,5 pt] Crie um notificador de "Percusso percorrido" conforme exemplo acima, defina uma escala de distância a gosto, este placar deve aumentar quando o scroll rolar para baixo.
+
+7-) [1 pt] Faça com o que o canhão ("tanque_canhao.png") acompanhe o corpo do tanque sempre centralizado pela região aproximada da escotilha.
+
+8-) [2 pts] Permita que as teclas "A" e "D" girem o canhão ao redor da região aproximada da escotilha.
+
+
 ### Game1.cs 
 
 {% highlight csharp %}
