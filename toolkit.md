@@ -46,3 +46,8 @@ Galeria de pacotes de sons e efeitos completamente royalty free!
 <span class="text-muted">Completamente em inglês</span>
 
 Framework multitouch open source para Unity3D! (E flash, se você for desses)
+
+### Outras listas
+
+#### [Game Assets pelo Andre Antonio Schmitz no Zeef](https://game-assets.zeef.com/andre.antonio.schmitz)
+
