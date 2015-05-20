@@ -1,6 +1,6 @@
 ---
 layout: artigo
-nome: Jogos para Consoles - Exercícios de 3D
+nome: Jogos Para Consoles - Exercícios de 3D
 ---
 
 ## Shuriken andando
