@@ -1,6 +1,6 @@
 ---
 layout: artigo
-nome: Atividade 3D XNA
+nome: Jogos Para Consoles - Atividade 3D XNA
 ---
 
 ## Atividade do Atrium Sponza
