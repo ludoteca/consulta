@@ -22,7 +22,6 @@ Prova do primeiro semestre de 2015:
 
 (Código com a resposta só amanhã, espertinho(a))
 
-<!--
 {% highlight csharp %}
 
 using System;
@@ -227,5 +226,3 @@ namespace WindowsGame1
 
 
 {% endhighlight %}
-
--->
